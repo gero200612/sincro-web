@@ -7,26 +7,23 @@
 <link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilo.css">
 <style>
-  :root { --azul: #0166FE; --tinta: #0B1F44; --tinta-suave: #4A5B7A; --papel: #F4F7FC; --linea: #DCE4F2; }
-  body { margin: 0; background: var(--papel); color: var(--tinta); font-family: 'Familjen Grotesk', system-ui, sans-serif; font-size: 18px; line-height: 1.6; }
-  a { color: var(--azul); }
-  a:focus-visible { outline: 3px solid var(--azul); outline-offset: 3px; border-radius: 4px; }
-  .cabecera { background: #fff; border-bottom: 1px solid var(--linea); }
-  .cabecera div, main { max-width: 760px; margin: 0 auto; padding: 0 24px; }
-  .cabecera div { height: 72px; display: flex; align-items: center; }
-  .marca { display: flex; align-items: center; gap: 10px; color: var(--tinta); text-decoration: none; font-weight: 700; font-size: 22px; }
-  .marca img { width: 36px; height: 36px; border-radius: 9px; }
-  main { padding-top: 48px; padding-bottom: 72px; }
-  h1 { font-size: 40px; letter-spacing: -0.025em; line-height: 1.1; margin: 0 0 8px; }
-  h2 { font-size: 23px; margin: 40px 0 8px; letter-spacing: -0.01em; }
-  p, li { color: var(--tinta-suave); max-width: 68ch; }
-  .fecha { margin: 0 0 32px; }
+  main { max-width: 760px; margin: 0 auto; padding: 132px clamp(20px, 5vw, 40px) 88px; }
+  h1 { font-size: clamp(2rem, 2.6vw + 0.6rem, 2.75rem); font-weight: 600; letter-spacing: -0.01em; line-height: 1.15; margin: 0 0 8px; }
+  h2 { font-size: 1.35rem; font-weight: 600; margin: 44px 0 8px; }
+  p, li { color: var(--tinta-suave); max-width: 38em; }
+  .fecha { margin: 0 0 36px; }
 </style>
 </head>
 <body>
-<header class="cabecera"><div><a class="marca" href="index.html"><img src="logo.png" alt="">Sincro</a></div></header>
+<header class="barra">
+  <div class="barra-adentro">
+    <a class="marca" href="index.html"><img src="logo.png" alt="">Sincro</a>
+    <nav aria-label="Principal"><a class="pildora" href="index.html#contacto">Contacto</a></nav>
+  </div>
+</header>
 <main>
   <h1>Política de privacidad</h1>
   <p class="fecha">Última actualización: 10 de octubre de 2026.</p>
@@ -59,5 +56,11 @@
   <h2>Contacto</h2>
   <p>Sincro. Email: <a href="mailto:sincroar.contacto@gmail.com">sincroar.contacto@gmail.com</a>. Instagram: <a href="https://www.instagram.com/sincro_ar/" target="_blank" rel="noopener">@sincro_ar</a>.</p>
 </main>
+<footer class="pie">
+  <div class="contenedor">
+    <span>© 2026 Sincro. Software a medida para pymes de Argentina.</span>
+    <a href="index.html">Inicio</a>
+  </div>
+</footer>
 </body>
 </html>

@@ -8,164 +8,146 @@
 <link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilo.css">
 <style>
-  :root {
-    --azul: #0166FE;
-    --azul-hondo: #0150C8;
-    --tinta: #0B1F44;
-    --tinta-suave: #4A5B7A;
-    --papel: #F4F7FC;
-    --blanco: #FFFFFF;
-    --listo: #14A06A;
-    --linea: #DCE4F2;
-    --ancho: 1120px;
-    --radio: 14px;
+  /* ---- Hero: la escena a la izquierda, como la estatua de JustaDama; el texto a la derecha ---- */
+  .hero {
+    position: relative; overflow: hidden;
+    min-height: min(100svh, 860px);
+    display: flex; align-items: center;
+    padding: 120px 0 56px;
+    background:
+      radial-gradient(ellipse 70% 80% at 22% 40%, #f1f1f0 0%, rgba(241, 241, 240, 0) 70%),
+      linear-gradient(180deg, #e7e7e5 0%, #eeedea 55%, var(--papel) 100%);
   }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    background: var(--papel);
-    color: var(--tinta);
-    font-family: 'Familjen Grotesk', system-ui, sans-serif;
-    font-size: 18px;
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
+  .hero .contenedor { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .hero-texto { max-width: 560px; justify-self: end; }
+  .hero h1 {
+    margin: 0 0 22px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.1;
+    font-size: clamp(2.3rem, 4vw + 0.4rem, 3.6rem);
   }
-  a { color: var(--azul); }
-  a:focus-visible, button:focus-visible { outline: 3px solid var(--azul); outline-offset: 3px; border-radius: 6px; }
-  .contenedor { max-width: var(--ancho); margin: 0 auto; padding: 0 24px; }
-
-  /* Header */
-  .cabecera { background: var(--blanco); border-bottom: 1px solid var(--linea); }
-  .cabecera .contenedor { display: flex; align-items: center; justify-content: space-between; height: 72px; }
-  .marca { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--tinta); font-weight: 700; font-size: 22px; letter-spacing: -0.01em; }
-  .marca img { width: 36px; height: 36px; border-radius: 9px; }
-  .cabecera nav { display: flex; gap: 28px; align-items: center; }
-  .cabecera nav a { color: var(--tinta-suave); text-decoration: none; font-weight: 500; font-size: 16px; }
-  .cabecera nav a:hover { color: var(--tinta); }
-  .boton {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--azul); color: var(--blanco); text-decoration: none;
-    font-weight: 600; font-size: 17px; padding: 14px 22px; border-radius: 10px;
-    transition: background .15s ease;
+  .trazo { position: relative; display: inline-block; }
+  .trazo::after {
+    content: ''; position: absolute; left: -2%; right: -2%; bottom: -0.1em; height: 0.16em; pointer-events: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 20' preserveAspectRatio='none'%3E%3Cpath d='M3 13.5C55 7 110 4 150 7.5C195 11.5 245 15 297 9' fill='none' stroke='%23d7b788' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
   }
-  .boton:hover { background: var(--azul-hondo); }
-  .boton.chico { padding: 9px 16px; font-size: 15px; }
-  .cabecera nav .boton { color: var(--blanco); }
+  .bajada { margin: 0 0 40px; font-size: clamp(1.04rem, 1vw + 0.7rem, 1.2rem); line-height: 1.6; color: var(--tinta-suave); max-width: 30em; }
+  .acciones { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
 
-  /* Hero */
-  .hero { background: var(--blanco); padding: 72px 0 88px; }
-  .hero .contenedor { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
-  .hero h1 { font-size: clamp(40px, 5.4vw, 68px); line-height: 1.02; letter-spacing: -0.035em; margin: 0 0 22px; font-weight: 700; max-width: 12ch; }
-  .hero p.bajada { font-size: 21px; color: var(--tinta-suave); margin: 0 0 32px; max-width: 34ch; }
-  .hero .acciones { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
-  .hero .acciones .secundario { color: var(--tinta); font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--linea); padding-bottom: 2px; }
-  .hero .acciones .secundario:hover { border-color: var(--azul); }
-
-  /* La escena: telefono + planilla */
-  .escena { position: relative; min-height: 470px; }
+  /* La escena: una factura llega por WhatsApp y queda cargada */
+  .escena { position: relative; justify-self: start; width: min(470px, 100%); min-height: 500px; font-family: var(--ui); }
   .telefono {
-    width: 290px; background: #E9EEF7; border-radius: 34px; padding: 14px;
-    box-shadow: 0 30px 60px -28px rgba(11, 31, 68, .45), 0 0 0 1px var(--linea);
-    position: relative; z-index: 2;
+    width: 292px; background: var(--tinta); border-radius: 40px; padding: 10px; position: relative; z-index: 2;
+    box-shadow: 0 40px 80px -30px rgba(26, 33, 46, 0.55);
   }
-  .pantalla { background: #EEF3FA; border-radius: 24px; overflow: hidden; height: 400px; display: flex; flex-direction: column; }
-  .chat-cabeza { background: var(--azul); color: var(--blanco); padding: 14px 16px; display: flex; gap: 10px; align-items: center; }
-  .chat-cabeza img { width: 30px; height: 30px; border-radius: 50%; background: var(--blanco); }
-  .chat-cabeza b { display: block; font-size: 15px; }
-  .chat-cabeza small { opacity: .85; font-size: 12px; }
-  .mensajes { flex: 1; padding: 22px 12px 14px; display: flex; flex-direction: column; gap: 10px; justify-content: flex-start; }
-  .burbuja { max-width: 82%; padding: 9px 12px; border-radius: 14px; font-size: 14px; line-height: 1.35; }
-  .burbuja.yo { align-self: flex-end; background: var(--blanco); border-bottom-right-radius: 4px; color: var(--tinta); }
-  .burbuja.bot { align-self: flex-start; background: var(--azul); color: var(--blanco); border-bottom-left-radius: 4px; }
-  .foto-factura { display: block; width: 150px; height: 92px; border-radius: 8px; margin-bottom: 6px; background:
-      repeating-linear-gradient(180deg, #CBD5E6 0 2px, transparent 2px 12px) 14px 34px / 100px 48px no-repeat,
-      linear-gradient(#0B1F44, #0B1F44) 14px 14px / 64px 8px no-repeat, #F8FAFE; border: 1px solid var(--linea); }
+  .pantalla { background: #f3f1ec; border-radius: 31px; overflow: hidden; height: 430px; display: flex; flex-direction: column; }
+  .chat-cabeza { background: #fff; padding: 16px 16px 12px; display: flex; gap: 10px; align-items: center; border-bottom: 1px solid var(--linea); }
+  .chat-cabeza img { width: 32px; height: 32px; border-radius: 50%; }
+  .chat-cabeza b { display: block; font-size: 14px; font-weight: 600; }
+  .chat-cabeza small { font-size: 12px; color: var(--tinta-suave); }
+  .mensajes { flex: 1; padding: 22px 12px 14px; display: flex; flex-direction: column; gap: 10px; }
+  .burbuja { max-width: 82%; padding: 9px 12px; border-radius: 16px; font-size: 13.5px; line-height: 1.4; }
+  .burbuja.yo { align-self: flex-end; background: #fff; border-bottom-right-radius: 5px; box-shadow: 0 1px 2px rgba(26, 33, 46, 0.08); }
+  .burbuja.bot { align-self: flex-start; background: var(--tinta); color: var(--papel); border-bottom-left-radius: 5px; }
+  .foto-factura {
+    display: block; width: 150px; height: 92px; border-radius: 8px; margin-bottom: 6px; border: 1px solid var(--linea);
+    background:
+      repeating-linear-gradient(180deg, #dcd8cf 0 2px, transparent 2px 12px) 14px 34px / 100px 48px no-repeat,
+      linear-gradient(var(--tinta), var(--tinta)) 14px 14px / 64px 8px no-repeat,
+      #fbfaf7;
+  }
   .planilla {
-    position: absolute; right: 0; bottom: -18px; width: min(350px, 76%); background: var(--blanco); border-radius: var(--radio);
-    border: 1px solid var(--linea); box-shadow: 0 24px 50px -30px rgba(11, 31, 68, .5); z-index: 3; font-size: 14px;
+    position: absolute; right: 0; bottom: 0; width: min(330px, 78%); z-index: 3;
+    background: #fff; border-radius: 22px; font-size: 13.5px;
+    box-shadow: 0 30px 60px -24px rgba(26, 33, 46, 0.35);
   }
-  .planilla header { padding: 12px 16px; border-bottom: 1px solid var(--linea); font-weight: 600; display: flex; justify-content: space-between; }
+  .planilla header { padding: 14px 18px; border-bottom: 1px solid var(--linea); font-weight: 600; display: flex; justify-content: space-between; }
   .planilla header span { color: var(--tinta-suave); font-weight: 500; }
   .planilla table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
-  .planilla td { padding: 9px 16px; border-bottom: 1px solid var(--linea); }
+  .planilla td { padding: 10px 18px; border-bottom: 1px solid var(--linea); }
   .planilla tr:last-child td { border-bottom: 0; }
   .planilla td.monto { text-align: right; }
-  .planilla tr.nueva td { background: #EAF8F1; }
-  .estado { color: var(--listo); font-weight: 600; margin-left: 6px; font-size: 13px; }
+  .planilla tr.nueva td { background: #f6efe3; }
+  .planilla tr.nueva td:first-child { border-bottom-left-radius: 22px; }
+  .planilla tr.nueva td:last-child { border-bottom-right-radius: 22px; }
+  .cargada { margin-left: 6px; font-size: 11.5px; font-weight: 600; color: #8a6a37; background: var(--dorado-claro); padding: 2px 7px; border-radius: 999px; }
 
-  /* Animacion: un solo momento, la factura que llega y queda cargada */
+  /* Un solo momento: la factura que llega y queda cargada */
   @media (prefers-reduced-motion: no-preference) {
-    .anima .paso { opacity: 0; transform: translateY(8px); animation: entra .45s ease forwards; }
-    .anima .p1 { animation-delay: .5s; }
-    .anima .p2 { animation-delay: 1.6s; }
-    .anima .p3 { animation-delay: 2.6s; }
-    .anima tr.nueva td { animation: resalta 1.4s ease 2.6s both; }
+    .anima .paso { opacity: 0; transform: translateY(8px); animation: entra 0.5s ease forwards; }
+    .anima .p1 { animation-delay: 0.6s; }
+    .anima .p2 { animation-delay: 1.7s; }
+    .anima .p3 { animation-delay: 2.7s; }
+    .anima tr.nueva td { animation: resalta 1.6s ease 2.7s both; }
   }
   @keyframes entra { to { opacity: 1; transform: none; } }
-  @keyframes resalta { from { background: #BFEBD6; } to { background: #EAF8F1; } }
+  @keyframes resalta { from { background: #ecd9b6; } to { background: #f6efe3; } }
 
-  /* Secciones */
-  section.bloque { padding: 88px 0; }
-  section.bloque h2 { font-size: clamp(30px, 3.4vw, 42px); letter-spacing: -0.025em; line-height: 1.1; margin: 0 0 14px; }
-  section.bloque p.intro { color: var(--tinta-suave); font-size: 20px; max-width: 52ch; margin: 0 0 44px; }
+  /* ---- Secciones ---- */
+  .bloque { padding: 112px 0; }
+  .bloque h2 { margin: 0 0 14px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.15; font-size: clamp(2rem, 2.6vw + 0.6rem, 2.75rem); }
+  .intro { margin: 0 0 52px; font-size: 1.15rem; color: var(--tinta-suave); max-width: 34em; }
 
-  .resolvemos { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 56px; }
-  .resolvemos li { padding: 22px 0; border-top: 1px solid var(--linea); }
-  .resolvemos b { display: block; font-size: 21px; margin-bottom: 4px; }
+  .resolvemos { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 64px; }
+  .resolvemos li { padding: 26px 0; border-top: 1px solid var(--linea); }
+  .resolvemos b { display: block; font-size: 1.25rem; font-weight: 600; margin-bottom: 6px; }
   .resolvemos span { color: var(--tinta-suave); }
 
-  .caso { background: var(--tinta); color: var(--blanco); }
-  .caso .contenedor { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
-  .caso h2 { color: var(--blanco); }
-  .caso p { color: #C5D2EA; font-size: 20px; margin: 0; max-width: 46ch; }
-  .caso .cita { font-size: clamp(26px, 2.8vw, 34px); line-height: 1.2; letter-spacing: -0.015em; font-weight: 600; color: var(--blanco); margin: 0; }
-  .caso .cita small { display: block; margin-top: 14px; font-size: 16px; color: #9FB3D9; font-weight: 500; }
+  .caso { background: var(--tinta); color: var(--papel); }
+  .caso .contenedor { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; }
+  .caso h2 { color: var(--papel); }
+  .caso p { margin: 0; font-size: 1.15rem; color: rgba(250, 248, 244, 0.72); max-width: 30em; }
+  .caso blockquote { margin: 0; padding-left: 28px; border-left: 2px solid var(--dorado); }
+  .caso blockquote p { font-size: clamp(1.5rem, 1.6vw + 0.8rem, 2.05rem); line-height: 1.3; font-weight: 500; color: var(--papel); }
+  .caso blockquote a { display: inline-block; margin-top: 18px; color: var(--dorado-claro); font-size: 1rem; }
 
-  .pasos { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; counter-reset: paso; }
+  .pasos { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; counter-reset: paso; }
   .pasos li { counter-increment: paso; }
-  .pasos li::before { content: counter(paso); display: block; font-size: 64px; font-weight: 700; color: var(--azul); line-height: 1; margin-bottom: 14px; letter-spacing: -0.04em; }
-  .pasos b { display: block; font-size: 21px; margin-bottom: 6px; }
+  .pasos li::before {
+    content: counter(paso); display: block; margin-bottom: 12px;
+    font-size: 3.4rem; font-weight: 500; line-height: 1; color: var(--dorado);
+  }
+  .pasos b { display: block; font-size: 1.25rem; font-weight: 600; margin-bottom: 6px; }
   .pasos span { color: var(--tinta-suave); }
 
-  .contacto { background: var(--blanco); }
-  .canales { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--linea); border-radius: var(--radio); overflow: hidden; }
-  .canales a { display: block; padding: 26px 24px; text-decoration: none; color: var(--tinta); border-right: 1px solid var(--linea); transition: background .15s ease; }
-  .canales a:last-child { border-right: 0; }
-  .canales a:hover { background: var(--papel); }
-  .canales small { display: block; color: var(--tinta-suave); font-size: 15px; margin-bottom: 4px; }
-  .canales b { font-size: 19px; word-break: break-word; }
+  /* El contacto, en una tarjeta blanca que flota, como el video de JustaDama */
+  .tarjeta {
+    background: #fff; border-radius: 28px; overflow: hidden;
+    box-shadow: 0 40px 80px -36px rgba(26, 33, 46, 0.35);
+    display: grid; grid-template-columns: repeat(3, 1fr);
+  }
+  .tarjeta a { display: block; padding: 32px 30px; text-decoration: none; border-right: 1px solid var(--linea); transition: background 0.2s ease; }
+  .tarjeta a:last-child { border-right: 0; }
+  .tarjeta a:hover { background: #fbf8f2; }
+  .tarjeta a:focus-visible { outline-offset: -4px; border-radius: 24px; }
+  .tarjeta small { display: block; margin-bottom: 4px; color: var(--tinta-suave); font-size: 0.95rem; }
+  .tarjeta b { font-size: 1.15rem; font-weight: 600; overflow-wrap: anywhere; }
 
-  footer { padding: 32px 0 48px; color: var(--tinta-suave); font-size: 15px; }
-  footer .contenedor { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-  footer a { color: var(--tinta-suave); }
-
-  @media (max-width: 880px) {
-    .hero { padding: 48px 0 64px; }
-    .hero .contenedor, .caso .contenedor { grid-template-columns: 1fr; gap: 40px; }
-    .escena { min-height: 0; padding-bottom: 150px; }
+  @media (max-width: 900px) {
+    .hero { padding: 108px 0 72px; min-height: 0; }
+    .hero .contenedor, .caso .contenedor { grid-template-columns: 1fr; gap: 48px; }
+    .hero-texto { justify-self: start; order: -1; }
+    .escena { justify-self: center; min-height: 0; padding-bottom: 150px; }
     .telefono { margin: 0 auto; }
-    .planilla { right: 50%; transform: translateX(50%); width: min(340px, 100%); }
-    .resolvemos, .pasos { grid-template-columns: 1fr; }
-    .pasos { gap: 28px; }
-    .canales { grid-template-columns: 1fr; }
-    .canales a { border-right: 0; border-bottom: 1px solid var(--linea); }
-    .canales a:last-child { border-bottom: 0; }
-    .cabecera nav a:not(.boton) { display: none; }
-    section.bloque { padding: 64px 0; }
+    /* Centrada con margenes: la animacion de entrada pisa cualquier transform. */
+    .planilla { left: 0; right: 0; margin: 0 auto; width: min(330px, 100%); }
+    .resolvemos, .pasos, .tarjeta { grid-template-columns: 1fr; }
+    .pasos { gap: 32px; }
+    .tarjeta a { border-right: 0; border-bottom: 1px solid var(--linea); }
+    .tarjeta a:last-child { border-bottom: 0; }
+    .bloque { padding: 80px 0; }
   }
 </style>
 </head>
 <body>
-<header class="cabecera">
-  <div class="contenedor">
+<header class="barra">
+  <div class="barra-adentro">
     <a class="marca" href="#"><img src="logo.png" alt="">Sincro</a>
     <nav aria-label="Principal">
       <a href="#resolvemos">Qué resolvemos</a>
       <a href="#como">Cómo trabajamos</a>
-      <a class="boton chico" href="#contacto">Contacto</a>
+      <a class="pildora" href="#contacto">Contacto</a>
     </nav>
   </div>
 </header>
@@ -173,15 +155,6 @@
 <main>
   <section class="hero">
     <div class="contenedor">
-      <div>
-        <h1>Tu negocio, sin cargar nada a mano.</h1>
-        <p class="bajada">Hacemos software y automatizaciones a medida para pymes argentinas: lo que hoy se copia a mano, se carga solo.</p>
-        <div class="acciones">
-          <a class="boton" href="mailto:sincroar.contacto@gmail.com?subject=Consulta%20desde%20la%20web">Escribinos</a>
-          <a class="secundario" href="#resolvemos">Ver qué resolvemos</a>
-        </div>
-      </div>
-
       <div class="escena anima" role="img" aria-label="Ejemplo: una factura enviada por WhatsApp queda cargada en la planilla del negocio">
         <div class="telefono" aria-hidden="true">
           <div class="pantalla">
@@ -197,8 +170,23 @@
           <table>
             <tr><td>Proveedor gas</td><td class="monto">$21.540</td></tr>
             <tr><td>Alquiler local</td><td class="monto">$310.000</td></tr>
-            <tr class="nueva"><td>Edesur <span class="estado">cargada</span></td><td class="monto">$48.230</td></tr>
+            <tr class="nueva"><td>Edesur <span class="cargada">cargada</span></td><td class="monto">$48.230</td></tr>
           </table>
+        </div>
+      </div>
+
+      <div class="hero-texto">
+        <h1>Tu negocio, sin cargar nada <span class="trazo">a mano</span></h1>
+        <p class="bajada">Hacemos software y automatizaciones a medida para pymes argentinas: lo que hoy se copia a mano, se carga solo.</p>
+        <div class="acciones">
+          <div class="boton-envuelto">
+            <span class="etiqueta" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.4"/><path d="M12 7.6v4.6l3.1 1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              15 min
+            </span>
+            <a class="boton" href="mailto:sincroar.contacto@gmail.com?subject=Consulta%20desde%20la%20web">Escribinos</a>
+          </div>
+          <a class="enlace" href="#resolvemos">Ver qué resolvemos</a>
         </div>
       </div>
     </div>
@@ -225,7 +213,10 @@
         <h2>Ya funcionando</h2>
         <p>Hicimos SincroResto, el sistema de gestión para restaurantes con pedidos, stock y caja. Está en uso todos los días.</p>
       </div>
-      <p class="cita">Pedidos, stock y caja en un mismo lugar, hecho a la medida del restaurante.<small>SincroResto, en sincroresto.com</small></p>
+      <blockquote>
+        <p>Pedidos, stock y caja en un mismo lugar, hecho a la medida del restaurante.</p>
+        <a href="https://sincroresto.com" target="_blank" rel="noopener">SincroResto, en sincroresto.com</a>
+      </blockquote>
     </div>
   </section>
 
@@ -241,11 +232,11 @@
     </div>
   </section>
 
-  <section class="bloque contacto" id="contacto">
+  <section class="bloque" id="contacto">
     <div class="contenedor">
       <h2>Hablemos</h2>
       <p class="intro">Contanos qué querés resolver y te respondemos con horarios para una llamada.</p>
-      <div class="canales">
+      <div class="tarjeta">
         <a href="mailto:sincroar.contacto@gmail.com?subject=Consulta%20desde%20la%20web"><small>Mail</small><b>sincroar.contacto@gmail.com</b></a>
         <a href="https://www.instagram.com/sincro_ar/" target="_blank" rel="noopener"><small>Instagram</small><b>@sincro_ar</b></a>
         <a href="https://www.facebook.com/profile.php?id=61595291607526" target="_blank" rel="noopener"><small>Facebook</small><b>Sincro</b></a>
@@ -254,7 +245,7 @@
   </section>
 </main>
 
-<footer>
+<footer class="pie">
   <div class="contenedor">
     <span>© 2026 Sincro. Software a medida para pymes de Argentina.</span>
     <a href="privacidad.html">Política de privacidad</a>
