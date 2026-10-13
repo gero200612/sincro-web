@@ -174,6 +174,8 @@
     .campo option:checked { background: var(--azul); color: #fff; font-weight: 600; }
     .campo option::checkmark { display: none; }
   }
+  .trampa { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .form .enviar:disabled { opacity: 0.6; cursor: wait; }
   .consentimiento { display: flex; gap: 10px; align-items: flex-start; font-size: 0.92rem; color: var(--tinta-suave); }
   .consentimiento input { margin-top: 3px; accent-color: var(--azul); width: 18px; height: 18px; flex: none; }
   .form .enviar { justify-self: start; border: 0; cursor: pointer; font-family: var(--serif); }
@@ -408,6 +410,7 @@
             </select>
           </div>
           <div class="campo ancho"><label for="f-mensaje">Contanos un poco más</label><textarea id="f-mensaje" name="mensaje" placeholder="Cómo lo hacés hoy y qué te gustaría que pase."></textarea></div>
+          <div class="trampa" aria-hidden="true"><label>Tu sitio web <input name="sitio" tabindex="-1" autocomplete="off"></label></div>
           <label class="consentimiento"><input type="checkbox" name="acepta_whatsapp">Acepto que Sincro me escriba por WhatsApp para coordinar la llamada.</label>
           <button class="boton enviar" type="submit">Enviar consulta</button>
           <p class="nota" aria-live="polite">Dejanos un WhatsApp o un mail para poder responderte.</p>
@@ -562,28 +565,73 @@
     });
   })();
 
-  // Formulario: por ahora arma el mail con lo que completaste.
-  document.getElementById('form-contacto').addEventListener('submit', (e) => {
+  // Formulario: va al bot de WhatsApp de Sincro (que se lo pasa a Homero). Si
+  // el bot no contesta, se arma el mail con lo mismo para no perder la consulta.
+  const FORMULARIO = 'https://wa.apps.punchi.dev/formulario';
+  document.getElementById('form-contacto').addEventListener('submit', async (e) => {
     e.preventDefault();
     const f = e.target;
     const nota = f.querySelector('.nota');
+    const boton = f.querySelector('.enviar');
     if (!f.nombre.value.trim() || (!f.whatsapp.value.trim() && !f.mail.value.trim())) {
       nota.dataset.estado = '';
       nota.textContent = 'Falta tu nombre y un WhatsApp o mail para poder responderte.';
       return;
     }
-    const cuerpo = [
-      'Nombre: ' + f.nombre.value,
-      'Negocio: ' + f.negocio.value,
-      'WhatsApp: ' + f.whatsapp.value + (f.acepta_whatsapp.checked ? ' (acepta que le escriban por WhatsApp)' : ''),
-      'Mail: ' + f.mail.value,
-      'Quiere resolver: ' + f.tema.value,
-      '',
-      f.mensaje.value,
-    ].join('\n');
-    location.href = 'mailto:sincroar.contacto@gmail.com?subject=' + encodeURIComponent('Consulta de ' + f.nombre.value) + '&body=' + encodeURIComponent(cuerpo);
-    nota.dataset.estado = 'ok';
-    nota.textContent = 'Se abrió tu mail con la consulta armada: solo falta tocar Enviar.';
+    const datos = {
+      nombre: f.nombre.value,
+      negocio: f.negocio.value,
+      whatsapp: f.whatsapp.value,
+      mail: f.mail.value,
+      tema: f.tema.value,
+      mensaje: f.mensaje.value,
+      acepta_whatsapp: f.acepta_whatsapp.checked,
+      sitio: f.sitio.value,
+    };
+    boton.disabled = true;
+    nota.dataset.estado = '';
+    nota.textContent = 'Enviando…';
+    try {
+      const r = await fetch(FORMULARIO, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(datos),
+        signal: AbortSignal.timeout(15000),
+      });
+      if (r.ok) {
+        f.reset();
+        nota.dataset.estado = 'ok';
+        nota.textContent = datos.acepta_whatsapp
+          ? '¡Listo! Te escribimos por WhatsApp en unos minutos.'
+          : '¡Listo! Te respondemos en el día hábil.';
+        return;
+      }
+      const { code } = await r.json().catch(() => ({}));
+      if (code === 'demasiados_envios') {
+        nota.textContent = 'Ya recibimos varias consultas desde acá. Probá en unos minutos o escribinos por WhatsApp.';
+        return;
+      }
+      if (code === 'falta_contacto') {
+        nota.textContent = 'Revisá el WhatsApp o el mail: no parecen válidos.';
+        return;
+      }
+      throw new Error(code || String(r.status));
+    } catch {
+      const cuerpo = [
+        'Nombre: ' + datos.nombre,
+        'Negocio: ' + datos.negocio,
+        'WhatsApp: ' + datos.whatsapp + (datos.acepta_whatsapp ? ' (acepta que le escriban por WhatsApp)' : ''),
+        'Mail: ' + datos.mail,
+        'Quiere resolver: ' + datos.tema,
+        '',
+        datos.mensaje,
+      ].join('\n');
+      location.href = 'mailto:sincroar.contacto@gmail.com?subject=' + encodeURIComponent('Consulta de ' + datos.nombre) + '&body=' + encodeURIComponent(cuerpo);
+      nota.dataset.estado = 'ok';
+      nota.textContent = 'No pudimos enviarla desde acá: se abrió tu mail con la consulta armada, solo falta tocar Enviar.';
+    } finally {
+      boton.disabled = false;
+    }
   });
 </script>
 </body>
