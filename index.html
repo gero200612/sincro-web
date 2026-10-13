@@ -10,134 +10,264 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="estilo.css">
+<script>document.documentElement.classList.add("js")</script>
 <style>
-  /* ---- Hero: la escena a la izquierda, como la estatua de JustaDama; el texto a la derecha ---- */
-  .hero {
-    position: relative; overflow: hidden;
-    min-height: min(100svh, 860px);
-    display: flex; align-items: center;
-    padding: 120px 0 56px;
+  /* ---- Hero: la foto a todo el ancho y el texto encima ---- */
+  .hero { position: relative; min-height: min(100svh, 900px); display: flex; align-items: center; color: #fff; overflow: hidden; background: var(--tinta); }
+  .hero picture, .hero .foto { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero .foto { object-fit: cover; object-position: 60% 50%; }
+  .hero::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
     background:
-      radial-gradient(ellipse 70% 80% at 22% 40%, #f1f1f0 0%, rgba(241, 241, 240, 0) 70%),
-      linear-gradient(180deg, #e7e7e5 0%, #eeedea 55%, var(--papel) 100%);
+      linear-gradient(90deg, rgba(26, 33, 46, 0.9) 0%, rgba(26, 33, 46, 0.78) 42%, rgba(26, 33, 46, 0.2) 70%, rgba(26, 33, 46, 0) 85%),
+      linear-gradient(0deg, rgba(26, 33, 46, 0.35) 0%, rgba(26, 33, 46, 0) 30%);
   }
-  .hero .contenedor { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
-  .hero-texto { max-width: 560px; justify-self: end; }
+  .hero .contenedor { position: relative; z-index: 1; width: 100%; padding-top: 120px; padding-bottom: 72px; }
+  .hero-texto { max-width: 580px; }
   .hero h1 {
     margin: 0 0 22px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.1;
-    font-size: clamp(2.3rem, 4vw + 0.4rem, 3.6rem);
+    font-size: clamp(2.4rem, 4vw + 0.5rem, 3.9rem);
   }
   .trazo { position: relative; display: inline-block; }
   .trazo::after {
     content: ''; position: absolute; left: -2%; right: -2%; bottom: -0.1em; height: 0.16em; pointer-events: none;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 20' preserveAspectRatio='none'%3E%3Cpath d='M3 13.5C55 7 110 4 150 7.5C195 11.5 245 15 297 9' fill='none' stroke='%23d7b788' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 20' preserveAspectRatio='none'%3E%3Cpath d='M3 13.5C55 7 110 4 150 7.5C195 11.5 245 15 297 9' fill='none' stroke='%235a9bff' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
   }
-  .bajada { margin: 0 0 40px; font-size: clamp(1.04rem, 1vw + 0.7rem, 1.2rem); line-height: 1.6; color: var(--tinta-suave); max-width: 30em; }
+  .bajada { margin: 0 0 40px; font-size: clamp(1.04rem, 1vw + 0.7rem, 1.22rem); line-height: 1.6; color: rgba(255, 255, 255, 0.84); max-width: 30em; }
   .acciones { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
-
-  /* La escena: una factura llega por WhatsApp y queda cargada */
-  .escena { position: relative; justify-self: start; width: min(470px, 100%); min-height: 500px; font-family: var(--ui); }
-  .telefono {
-    width: 292px; background: var(--tinta); border-radius: 40px; padding: 10px; position: relative; z-index: 2;
-    box-shadow: 0 40px 80px -30px rgba(26, 33, 46, 0.55);
-  }
-  .pantalla { background: #f3f1ec; border-radius: 31px; overflow: hidden; height: 430px; display: flex; flex-direction: column; }
-  .chat-cabeza { background: #fff; padding: 16px 16px 12px; display: flex; gap: 10px; align-items: center; border-bottom: 1px solid var(--linea); }
-  .chat-cabeza img { width: 32px; height: 32px; border-radius: 50%; }
-  .chat-cabeza b { display: block; font-size: 14px; font-weight: 600; }
-  .chat-cabeza small { font-size: 12px; color: var(--tinta-suave); }
-  .mensajes { flex: 1; padding: 22px 12px 14px; display: flex; flex-direction: column; gap: 10px; }
-  .burbuja { max-width: 82%; padding: 9px 12px; border-radius: 16px; font-size: 13.5px; line-height: 1.4; }
-  .burbuja.yo { align-self: flex-end; background: #fff; border-bottom-right-radius: 5px; box-shadow: 0 1px 2px rgba(26, 33, 46, 0.08); }
-  .burbuja.bot { align-self: flex-start; background: var(--tinta); color: var(--papel); border-bottom-left-radius: 5px; }
-  .foto-factura {
-    display: block; width: 150px; height: 92px; border-radius: 8px; margin-bottom: 6px; border: 1px solid var(--linea);
-    background:
-      repeating-linear-gradient(180deg, #dcd8cf 0 2px, transparent 2px 12px) 14px 34px / 100px 48px no-repeat,
-      linear-gradient(var(--tinta), var(--tinta)) 14px 14px / 64px 8px no-repeat,
-      #fbfaf7;
-  }
-  .planilla {
-    position: absolute; right: 0; bottom: 0; width: min(330px, 78%); z-index: 3;
-    background: #fff; border-radius: 22px; font-size: 13.5px;
-    box-shadow: 0 30px 60px -24px rgba(26, 33, 46, 0.35);
-  }
-  .planilla header { padding: 14px 18px; border-bottom: 1px solid var(--linea); font-weight: 600; display: flex; justify-content: space-between; }
-  .planilla header span { color: var(--tinta-suave); font-weight: 500; }
-  .planilla table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
-  .planilla td { padding: 10px 18px; border-bottom: 1px solid var(--linea); }
-  .planilla tr:last-child td { border-bottom: 0; }
-  .planilla td.monto { text-align: right; }
-  .planilla tr.nueva td { background: #f6efe3; }
-  .planilla tr.nueva td:first-child { border-bottom-left-radius: 22px; }
-  .planilla tr.nueva td:last-child { border-bottom-right-radius: 22px; }
-  .cargada { margin-left: 6px; font-size: 11.5px; font-weight: 600; color: #8a6a37; background: var(--dorado-claro); padding: 2px 7px; border-radius: 999px; }
-
-  /* Un solo momento: la factura que llega y queda cargada */
-  @media (prefers-reduced-motion: no-preference) {
-    .anima .paso { opacity: 0; transform: translateY(8px); animation: entra 0.5s ease forwards; }
-    .anima .p1 { animation-delay: 0.6s; }
-    .anima .p2 { animation-delay: 1.7s; }
-    .anima .p3 { animation-delay: 2.7s; }
-    .anima tr.nueva td { animation: resalta 1.6s ease 2.7s both; }
-  }
-  @keyframes entra { to { opacity: 1; transform: none; } }
-  @keyframes resalta { from { background: #ecd9b6; } to { background: #f6efe3; } }
+  .hero .boton { background: var(--azul); }
+  .hero .boton::before { background: #fff; }
+  .hero .boton::after { background: #0150c8; }
+  .hero .enlace { color: #fff; }
 
   /* ---- Secciones ---- */
   .bloque { padding: 112px 0; }
   .bloque h2 { margin: 0 0 14px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.15; font-size: clamp(2rem, 2.6vw + 0.6rem, 2.75rem); }
   .intro { margin: 0 0 52px; font-size: 1.15rem; color: var(--tinta-suave); max-width: 34em; }
 
-  .resolvemos { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 64px; }
-  .resolvemos li { padding: 26px 0; border-top: 1px solid var(--linea); }
-  .resolvemos b { display: block; font-size: 1.25rem; font-weight: 600; margin-bottom: 6px; }
-  .resolvemos span { color: var(--tinta-suave); }
+  /* Que resolvemos: seis fotos; la que esta debajo del mouse se agranda y cuenta mas */
+  .resolvemos { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .resolvemos li {
+    position: relative; aspect-ratio: 4 / 5; border-radius: 24px; overflow: hidden; color: #fff;
+    isolation: isolate; background: linear-gradient(160deg, #2a3a5c, var(--tinta));
+    box-shadow: 0 24px 48px -30px rgba(26, 33, 46, 0.5);
+    transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.45s ease;
+  }
+  .resolvemos li::before {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background: var(--foto, none) center / cover;
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease;
+  }
+  .resolvemos li::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(0deg, rgba(26, 33, 46, 0.92) 0%, rgba(26, 33, 46, 0.35) 45%, rgba(26, 33, 46, 0) 70%);
+  }
+  .resolvemos .texto { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; padding: 26px 26px 28px; }
+  .resolvemos b { display: block; font-size: 1.32rem; font-weight: 600; line-height: 1.2; }
+  .resolvemos span { display: block; color: rgba(255, 255, 255, 0.86); font-size: 1rem; line-height: 1.5; max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.45s ease, opacity 0.3s ease, margin 0.45s ease; }
+  .resolvemos li:hover span { max-height: 9em; opacity: 1; margin-top: 10px; }
+  /* Con mouse: la tarjeta de abajo crece y empuja a las demas, pero la seccion no cambia:
+     la grilla mide siempre 702px de alto y el ancho del contenedor, y las tarjetas se reparten ese lugar */
+  @media (min-width: 901px) and (hover: hover) {
+    .resolvemos {
+      height: 702px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+      transition: grid-template-columns 0.8s cubic-bezier(0.22, 1, 0.36, 1), grid-template-rows 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .resolvemos li { aspect-ratio: auto; min-width: 0; min-height: 0; transition: box-shadow 0.6s ease, opacity 0.9s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
+    .resolvemos:has(li:nth-child(3n+1):hover) { grid-template-columns: minmax(0, 2.4fr) minmax(0, 0.8fr) minmax(0, 0.8fr); }
+    .resolvemos:has(li:nth-child(3n+2):hover) { grid-template-columns: minmax(0, 0.8fr) minmax(0, 2.4fr) minmax(0, 0.8fr); }
+    .resolvemos:has(li:nth-child(3n):hover) { grid-template-columns: minmax(0, 0.8fr) minmax(0, 0.8fr) minmax(0, 2.4fr); }
+    .resolvemos:has(li:nth-child(-n+3):hover) { grid-template-rows: minmax(0, 2fr) minmax(0, 1fr); }
+    .resolvemos:has(li:nth-child(n+4):hover) { grid-template-rows: minmax(0, 1fr) minmax(0, 2fr); }
+    .resolvemos li:hover::before { transform: scale(1.06); }
+    .resolvemos:has(li:hover) li:not(:hover)::before { filter: brightness(0.75) saturate(0.8); }
+    .resolvemos li:hover { box-shadow: 0 40px 70px -30px rgba(26, 33, 46, 0.6); }
+    .resolvemos b { transition: font-size 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+    .resolvemos li:hover b { font-size: 1.7rem; }
+    .resolvemos span { transition: max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s, opacity 0.45s ease 0.18s, margin 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+  }
+  /* En el celular no hay mouse: la descripcion queda a la vista */
+  @media (hover: none) { .resolvemos span { max-height: none; opacity: 1; margin-top: 8px; } }
+  @media (prefers-reduced-motion: reduce) { .resolvemos li, .resolvemos span { transition: none; } }
 
-  .caso { background: var(--tinta); color: var(--papel); }
-  .caso .contenedor { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; }
+  /* Ya funcionando: un carrusel con lo que hicimos */
+  .caso { background: var(--tinta); color: var(--papel); overflow: hidden; }
   .caso h2 { color: var(--papel); }
-  .caso p { margin: 0; font-size: 1.15rem; color: rgba(250, 248, 244, 0.72); max-width: 30em; }
-  .caso blockquote { margin: 0; padding-left: 28px; border-left: 2px solid var(--dorado); }
-  .caso blockquote p { font-size: clamp(1.5rem, 1.6vw + 0.8rem, 2.05rem); line-height: 1.3; font-weight: 500; color: var(--papel); }
-  .caso blockquote a { display: inline-block; margin-top: 18px; color: var(--dorado-claro); font-size: 1rem; }
-
-  .pasos { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; counter-reset: paso; }
-  .pasos li { counter-increment: paso; }
-  .pasos li::before {
-    content: counter(paso); display: block; margin-bottom: 12px;
-    font-size: 3.4rem; font-weight: 500; line-height: 1; color: var(--dorado);
+  .caso .intro { color: rgba(250, 248, 244, 0.72); }
+  .caso-cabeza { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
+  .flechas { display: flex; gap: 10px; margin-bottom: 52px; }
+  .flechas button {
+    width: 52px; height: 52px; border-radius: 50%; border: 1px solid rgba(250, 248, 244, 0.3); background: transparent; color: var(--papel);
+    display: grid; place-items: center; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease;
   }
-  .pasos b { display: block; font-size: 1.25rem; font-weight: 600; margin-bottom: 6px; }
-  .pasos span { color: var(--tinta-suave); }
+  .flechas button:hover:not(:disabled) { background: var(--azul); border-color: var(--azul); }
+  .flechas button:disabled { opacity: 0.35; cursor: default; }
+  .flechas svg { width: 20px; height: 20px; }
+  .pista { display: grid; grid-auto-flow: column; grid-auto-columns: var(--obra); gap: 28px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 4px; }
+  /* Los trabajos siguen hasta el borde de la pantalla */
+  /* Los trabajos van de borde a borde de la pantalla: el que pasa sigue a la vista a la izquierda */
+  .caso { --borde: calc(clamp(20px, 5vw, 40px) + max(0px, (100vw - var(--ancho)) / 2)); }
+  .pista { --obra: min(780px, 82vw); margin: 0 calc(-1 * var(--borde)); padding: 0 calc((100vw - var(--obra)) / 2) 4px; }
+  .pista::-webkit-scrollbar { display: none; }
+  .pista:focus-visible { outline: 2px solid var(--azul); outline-offset: 6px; border-radius: 18px; }
+  .obra { scroll-snap-align: center; display: grid; gap: 22px; align-content: start; }
+  .ventana { border-radius: 18px; overflow: hidden; background: #2a3245; box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.7); }
+  .ventana .puntos { display: flex; gap: 6px; padding: 12px 14px; background: #232a3a; }
+  .ventana .puntos i { width: 10px; height: 10px; border-radius: 50%; background: rgba(250, 248, 244, 0.25); }
+  .ventana img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+  .ventana .pronto { aspect-ratio: 16 / 10; display: grid; place-items: center; font-size: 2.4rem; font-weight: 600; color: rgba(250, 248, 244, 0.55); background: radial-gradient(circle at 30% 30%, #1d4fa8, #232a3a 70%); }
+  .obra h3 { margin: 0 0 6px; font-size: 1.5rem; font-weight: 600; }
+  .obra p { margin: 0 0 10px; color: rgba(250, 248, 244, 0.72); max-width: 34em; }
+  .obra a { color: var(--azul-claro); font-size: 1rem; }
+  .indicador { display: flex; justify-content: center; gap: 8px; margin-top: 36px; }
+  .indicador button { width: 28px; height: 4px; border-radius: 4px; border: 0; padding: 0; background: rgba(250, 248, 244, 0.25); cursor: pointer; transition: background 0.2s ease, width 0.3s ease; }
+  .indicador button[aria-current="true"] { background: var(--azul); width: 48px; }
 
-  /* El contacto, en una tarjeta blanca que flota, como el video de JustaDama */
-  .tarjeta {
-    background: #fff; border-radius: 28px; overflow: hidden;
-    box-shadow: 0 40px 80px -36px rgba(26, 33, 46, 0.35);
-    display: grid; grid-template-columns: repeat(3, 1fr);
+  /* Como trabajamos: tres pasos grandes, unidos por una linea */
+  .pasos { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; position: relative; }
+  .pasos::before { content: ''; position: absolute; top: 62px; left: 10%; right: 10%; height: 2px; background: repeating-linear-gradient(90deg, var(--azul) 0 10px, transparent 10px 20px); opacity: 0.4; }
+  .pasos li { position: relative; background: #fff; border-radius: 28px; padding: 30px 30px 34px; box-shadow: 0 30px 60px -40px rgba(26, 33, 46, 0.35); }
+  .pasos .num {
+    display: grid; place-items: center; width: 64px; height: 64px; margin-bottom: 26px; border-radius: 50%;
+    background: var(--azul); color: #fff; font-size: 1.7rem; font-weight: 600; box-shadow: 0 0 0 8px #fff;
   }
-  .tarjeta a { display: block; padding: 32px 30px; text-decoration: none; border-right: 1px solid var(--linea); transition: background 0.2s ease; }
-  .tarjeta a:last-child { border-right: 0; }
-  .tarjeta a:hover { background: #fbf8f2; }
-  .tarjeta a:focus-visible { outline-offset: -4px; border-radius: 24px; }
-  .tarjeta small { display: block; margin-bottom: 4px; color: var(--tinta-suave); font-size: 0.95rem; }
-  .tarjeta b { font-size: 1.15rem; font-weight: 600; overflow-wrap: anywhere; }
+  .pasos .cuando { display: block; width: fit-content; margin-bottom: 12px; padding: 3px 12px; border-radius: 999px; background: #eaf2ff; color: #0150c8; font-family: var(--ui); font-size: 0.8rem; font-weight: 600; }
+  .pasos b { display: block; font-size: 1.7rem; font-weight: 600; line-height: 1.15; margin-bottom: 10px; }
+  .pasos p { margin: 0; color: var(--tinta-suave); }
+
+  /* Hablemos: el formulario, las redes y las preguntas */
+  .contacto-grilla { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 64px; align-items: start; }
+  .form { background: #fff; border-radius: 28px; padding: 36px; box-shadow: 0 40px 80px -40px rgba(26, 33, 46, 0.35); display: grid; grid-template-columns: 1fr 1fr; gap: 18px; font-family: var(--ui); }
+  .campo { display: grid; gap: 6px; align-content: start; }
+  .campo.ancho, .consentimiento, .form .enviar, .form .nota { grid-column: 1 / -1; }
+  .campo label { font-size: 0.9rem; font-weight: 600; }
+  .campo input, .campo select, .campo textarea {
+    font: inherit; font-size: 1rem; color: var(--tinta); background: var(--papel);
+    border: 1px solid var(--linea); border-radius: 14px; padding: 12px 14px; width: 100%;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .campo textarea { min-height: 120px; resize: vertical; }
+  .campo input:focus, .campo select:focus, .campo textarea:focus { outline: none; border-color: var(--azul); box-shadow: 0 0 0 4px rgba(1, 102, 254, 0.15); }
+  /* El select: cerrado con flecha propia en todos los navegadores; abierto, con la lista
+     estilada en los que ya dejan (Chrome y Edge, appearance: base-select) */
+  .campo select {
+    appearance: none; -webkit-appearance: none; cursor: pointer; padding-right: 46px;
+    background: var(--papel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230166fe' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 16px center / 18px;
+  }
+  .campo select:hover { border-color: var(--azul); }
+  .campo option { background: #fff; color: var(--tinta); }
+  @supports (appearance: base-select) {
+    .campo select, .campo ::picker(select) { appearance: base-select; }
+    .campo select { display: flex; align-items: center; background-image: none; padding-right: 14px; }
+    .campo select::picker-icon { content: ''; width: 18px; height: 18px; margin-left: auto; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230166fe' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat center / contain; transition: transform 0.3s ease; }
+    .campo select:open::picker-icon { transform: rotate(180deg); }
+    .campo ::picker(select) {
+      border: 1px solid var(--linea); border-radius: 18px; padding: 6px; margin-top: 6px;
+      background: #fff; box-shadow: 0 24px 48px -20px rgba(26, 33, 46, 0.35);
+      opacity: 0; transform: translateY(-6px);
+      transition: opacity 0.2s ease, transform 0.25s ease, overlay 0.25s allow-discrete, display 0.25s allow-discrete;
+    }
+    .campo ::picker(select):popover-open { opacity: 1; transform: none; }
+    @starting-style { .campo ::picker(select):popover-open { opacity: 0; transform: translateY(-6px); } }
+    .campo option { padding: 10px 14px; border-radius: 12px; font-size: 0.98rem; transition: background 0.15s ease; }
+    .campo option:hover, .campo option:focus-visible { background: #eaf2ff; outline: none; }
+    .campo option:checked { background: var(--azul); color: #fff; font-weight: 600; }
+    .campo option::checkmark { display: none; }
+  }
+  .consentimiento { display: flex; gap: 10px; align-items: flex-start; font-size: 0.92rem; color: var(--tinta-suave); }
+  .consentimiento input { margin-top: 3px; accent-color: var(--azul); width: 18px; height: 18px; flex: none; }
+  .form .enviar { justify-self: start; border: 0; cursor: pointer; font-family: var(--serif); }
+  .form .nota { margin: 0; font-size: 0.88rem; color: var(--tinta-suave); }
+  .form .nota[data-estado="ok"] { color: #0150c8; font-weight: 600; }
+
+  .redes { display: grid; gap: 12px; }
+  .red {
+    display: flex; align-items: center; gap: 16px; padding: 16px 20px; border-radius: 20px; text-decoration: none;
+    background: #fff; border: 1px solid var(--linea); transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .red:hover { transform: translateY(-2px); border-color: var(--azul); box-shadow: 0 16px 30px -20px rgba(1, 102, 254, 0.5); }
+  .red:focus-visible { border-radius: 20px; }
+  /* El icono late y cada tanto pasa un brillo por la tarjeta, para que se note */
+  .red { position: relative; overflow: hidden; isolation: isolate; }
+  .red::after {
+    content: ''; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; pointer-events: none;
+    background: linear-gradient(100deg, transparent, rgba(1, 102, 254, 0.12), transparent); transform: skewX(-18deg);
+  }
+  .red .icono { position: relative; }
+  .red .icono::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: inherit; z-index: -1; }
+  @media (prefers-reduced-motion: no-preference) {
+    .red.wa::after, .red.ig::after, .red.fb::after { animation: brillo 4.5s ease-in-out infinite; }
+    .red.ig::after { animation-delay: 0.3s; }
+    .red.fb::after { animation-delay: 0.6s; }
+    .red.wa .icono::before, .red.ig .icono::before, .red.fb .icono::before { animation: late 2.4s ease-out infinite; }
+    .red.ig .icono::before { animation-delay: 0.6s; }
+    .red.fb .icono::before { animation-delay: 1.2s; }
+    .red:hover .icono { animation: sacude 0.6s ease; }
+  }
+  @keyframes brillo { 0%, 60% { left: -60%; } 85%, 100% { left: 130%; } }
+  @keyframes late { 0% { transform: scale(1); opacity: 0.55; } 100% { transform: scale(1.7); opacity: 0; } }
+  @keyframes sacude { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-12deg) scale(1.1); } 60% { transform: rotate(9deg) scale(1.1); } }
+  .red .icono { flex: none; width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; color: #fff; }
+  .red .icono svg { width: 24px; height: 24px; }
+  .red.ig .icono { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
+  .red.fb .icono { background: #1877f2; }
+  .red.wa .icono { background: #25d366; }
+  .red.mail .icono { background: var(--tinta); }
+  .red small { display: block; color: var(--tinta-suave); font-size: 0.88rem; font-family: var(--ui); }
+  .red b { font-size: 1.08rem; font-weight: 600; overflow-wrap: anywhere; }
+
+  .faq { margin: 112px auto 0; max-width: 860px; }
+  .faq h2 { margin: 0 0 32px; text-align: center; }
+  .faq details { border-top: 1px solid var(--linea); }
+  .faq details:last-child { border-bottom: 1px solid var(--linea); }
+  .faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 0; font-size: 1.18rem; font-weight: 600; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: #eaf2ff; color: var(--azul); font-size: 1.3rem; font-weight: 500; transition: transform 0.25s ease; }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq summary:focus-visible { outline: 2px solid var(--azul); outline-offset: 2px; border-radius: 8px; }
+  .faq details p { margin: 0; padding-bottom: 24px; color: var(--tinta-suave); max-width: 40em; }
+  .faq .respuesta { overflow: hidden; }
+
+  /* ---- Al scrollear: cada seccion entra a su manera ---- */
+  @media (prefers-reduced-motion: no-preference) {
+    .js [data-aparece] { opacity: 0; transform: translateY(36px); transition: opacity 0.9s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: calc(var(--orden, 0) * 120ms); }
+    .js [data-aparece="izq"] { transform: translateX(-48px); }
+    .js [data-aparece="der"] { transform: translateX(80px); }
+    .js [data-aparece="zoom"] { transform: scale(0.94); }
+    .js [data-aparece].visto { opacity: 1; transform: none; }
+    /* las tarjetas de Que resolvemos: apenas vistas, el hover vuelve a ser inmediato */
+    .js .resolvemos li[data-aparece] { transition: box-shadow 0.6s ease, opacity 0.9s ease calc(var(--orden, 0) * 120ms), transform 1s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--orden, 0) * 120ms); }
+    /* la linea punteada de los pasos se dibuja de izquierda a derecha y los numeros saltan */
+    .js .pasos::before { transform: scaleX(0); transform-origin: left; transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s; }
+    .js .pasos.visto::before { transform: scaleX(1); }
+    .js .pasos .num { transform: scale(0); transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); transition-delay: calc(var(--orden, 0) * 260ms + 0.5s); }
+    .js .pasos.visto .num { transform: scale(1); }
+    /* el hero entra al cargar */
+    .hero .foto { animation: acerca 2.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+    .hero-texto > * { animation: sube 1s cubic-bezier(0.22, 1, 0.36, 1) both; }
+    .hero-texto > :nth-child(2) { animation-delay: 0.15s; }
+    .hero-texto > :nth-child(3) { animation-delay: 0.3s; }
+  }
+  @keyframes acerca { from { transform: scale(1.08); } to { transform: none; } }
+  @keyframes sube { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 
   @media (max-width: 900px) {
-    .hero { padding: 108px 0 72px; min-height: 0; }
-    .hero .contenedor, .caso .contenedor { grid-template-columns: 1fr; gap: 48px; }
-    .hero-texto { justify-self: start; order: -1; }
-    .escena { justify-self: center; min-height: 0; padding-bottom: 150px; }
-    .telefono { margin: 0 auto; }
-    /* Centrada con margenes: la animacion de entrada pisa cualquier transform. */
-    .planilla { left: 0; right: 0; margin: 0 auto; width: min(330px, 100%); }
-    .resolvemos, .pasos, .tarjeta { grid-template-columns: 1fr; }
-    .pasos { gap: 32px; }
-    .tarjeta a { border-right: 0; border-bottom: 1px solid var(--linea); }
-    .tarjeta a:last-child { border-bottom: 0; }
+    .hero { align-items: flex-end; min-height: 100svh; }
+    .hero .foto { object-position: 45% 50%; }
+    .hero::after { background: linear-gradient(0deg, rgba(26, 33, 46, 0.94) 0%, rgba(26, 33, 46, 0.75) 45%, rgba(26, 33, 46, 0.1) 80%); }
+    .resolvemos { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .resolvemos .texto { padding: 18px; }
+    .resolvemos b { font-size: 1.08rem; }
+    .resolvemos span { font-size: 0.9rem; }
+    .pasos, .contacto-grilla { grid-template-columns: 1fr; }
+    .pasos::before { display: none; }
+    .contacto-grilla { gap: 32px; }
+    .faq { margin-top: 80px; }
+    .faq h2 { text-align: left; }
+    .form { grid-template-columns: 1fr; padding: 26px; }
     .bloque { padding: 80px 0; }
   }
+  @media (max-width: 560px) { .resolvemos { grid-template-columns: 1fr; } .resolvemos li { aspect-ratio: 5 / 4; } }
 </style>
 </head>
 <body>
@@ -146,7 +276,9 @@
     <a class="marca" href="#"><img src="logo.png" alt="">Sincro</a>
     <nav aria-label="Principal">
       <a href="#resolvemos">Qué resolvemos</a>
+      <a href="#trabajos">Trabajos</a>
       <a href="#como">Cómo trabajamos</a>
+      <a href="#preguntas">Preguntas</a>
       <a class="pildora" href="#contacto">Contacto</a>
     </nav>
   </div>
@@ -154,27 +286,11 @@
 
 <main>
   <section class="hero">
+    <picture>
+      <source type="image/webp" srcset="hero-800.webp 800w, hero.webp 1376w" sizes="100vw">
+      <img class="foto" src="hero.jpg" width="1376" height="768" fetchpriority="high" alt="">
+    </picture>
     <div class="contenedor">
-      <div class="escena anima" role="img" aria-label="Ejemplo: una factura enviada por WhatsApp queda cargada en la planilla del negocio">
-        <div class="telefono" aria-hidden="true">
-          <div class="pantalla">
-            <div class="chat-cabeza"><img src="logo.png" alt=""><div><b>Sincro</b><small>en línea</small></div></div>
-            <div class="mensajes">
-              <div class="burbuja yo paso p1"><span class="foto-factura"></span>Te paso la factura de la luz</div>
-              <div class="burbuja bot paso p2">Listo, quedó cargada: Edesur, $48.230, vence el 18/10.</div>
-            </div>
-          </div>
-        </div>
-        <div class="planilla paso p3" aria-hidden="true">
-          <header>Facturas de octubre <span>3</span></header>
-          <table>
-            <tr><td>Proveedor gas</td><td class="monto">$21.540</td></tr>
-            <tr><td>Alquiler local</td><td class="monto">$310.000</td></tr>
-            <tr class="nueva"><td>Edesur <span class="cargada">cargada</span></td><td class="monto">$48.230</td></tr>
-          </table>
-        </div>
-      </div>
-
       <div class="hero-texto">
         <h1>Tu negocio, sin cargar nada <span class="trazo">a mano</span></h1>
         <p class="bajada">Hacemos software y automatizaciones a medida para pymes argentinas: lo que hoy se copia a mano, se carga solo.</p>
@@ -184,7 +300,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.4"/><path d="M12 7.6v4.6l3.1 1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
               15 min
             </span>
-            <a class="boton" href="mailto:sincroar.contacto@gmail.com?subject=Consulta%20desde%20la%20web">Escribinos</a>
+            <a class="boton" href="#contacto">Contanos qué necesitás</a>
           </div>
           <a class="enlace" href="#resolvemos">Ver qué resolvemos</a>
         </div>
@@ -194,52 +310,120 @@
 
   <section class="bloque" id="resolvemos">
     <div class="contenedor">
-      <h2>Qué resolvemos</h2>
+      <h2 data-aparece>Qué resolvemos</h2>
       <p class="intro">Cada sistema se arma para cómo trabaja tu negocio. Estas son las cosas que más nos piden:</p>
       <ul class="resolvemos">
-        <li><b>Facturas que se cargan solas</b><span>Llegan por WhatsApp o mail y quedan cargadas y ordenadas.</span></li>
-        <li><b>Pedidos directo al sistema</b><span>Los que entran por WhatsApp o mail se registran sin copiarlos a mano.</span></li>
-        <li><b>Stock que avisa</b><span>Te enterás cuando algo se está por terminar, antes de quedarte sin.</span></li>
-        <li><b>Turnos y agenda</b><span>Reservas, recordatorios y cancelaciones, sin cuaderno.</span></li>
-        <li><b>Cobranzas</b><span>Recordatorios de pago a tus clientes, y el detalle de quién debe.</span></li>
-        <li><b>Reportes del negocio</b><span>Ventas, gastos, lo que se debe y lo que se cobra, a la vista.</span></li>
+        <li style="--foto: url(resuelve-facturas.webp); --orden: 0" data-aparece><div class="texto"><b>Facturas que se cargan solas</b><span>Nos reenviás la foto o el PDF por WhatsApp o mail y queda cargada con proveedor, monto y vencimiento. Sin tipear nada.</span></div></li>
+        <li style="--foto: url(resuelve-pedidos.webp); --orden: 1" data-aparece><div class="texto"><b>Pedidos directo al sistema</b><span>Los pedidos que entran por WhatsApp o mail se registran solos, con cliente y productos, listos para preparar.</span></div></li>
+        <li style="--foto: url(resuelve-stock.webp); --orden: 2" data-aparece><div class="texto"><b>Stock que avisa</b><span>Te enterás cuando algo se está por terminar o por vencer, antes de quedarte sin.</span></div></li>
+        <li style="--foto: url(resuelve-turnos.webp); --orden: 3" data-aparece><div class="texto"><b>Turnos y agenda</b><span>Tus clientes reservan solos, les llega el recordatorio y las cancelaciones liberan el lugar. Chau cuaderno.</span></div></li>
+        <li style="--foto: url(resuelve-cobranzas.webp); --orden: 4" data-aparece><div class="texto"><b>Cobranzas</b><span>Recordatorios de pago automáticos y una lista clara de quién debe, cuánto y desde cuándo.</span></div></li>
+        <li style="--foto: url(resuelve-reportes.webp); --orden: 5" data-aparece><div class="texto"><b>Reportes del negocio</b><span>Ventas, gastos, lo que se debe y lo que se cobra, en una pantalla que se actualiza sola.</span></div></li>
       </ul>
     </div>
   </section>
 
-  <section class="bloque caso">
+  <section class="bloque caso" id="trabajos">
     <div class="contenedor">
-      <div>
-        <h2>Ya funcionando</h2>
-        <p>Hicimos SincroResto, el sistema de gestión para restaurantes con pedidos, stock y caja. Está en uso todos los días.</p>
+      <div class="caso-cabeza" data-aparece="izq">
+        <div>
+          <h2>Ya funcionando</h2>
+          <p class="intro">Sistemas que hicimos y que se usan todos los días.</p>
+        </div>
+        <div class="flechas">
+          <button type="button" data-ir="-1" aria-label="Trabajo anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button type="button" data-ir="1" aria-label="Trabajo siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
       </div>
-      <blockquote>
-        <p>Pedidos, stock y caja en un mismo lugar, hecho a la medida del restaurante.</p>
-        <a href="https://sincroresto.com" target="_blank" rel="noopener">SincroResto, en sincroresto.com</a>
-      </blockquote>
+      <div class="pista" tabindex="0" aria-label="Trabajos" data-aparece="der" style="--orden: 1">
+        <article class="obra">
+          <div class="ventana"><div class="puntos"><i></i><i></i><i></i></div><img src="caso-sincroresto.webp" width="1200" height="750" loading="lazy" alt="Inicio de SincroResto"></div>
+          <div><h3>SincroResto</h3><p>El sistema de gestión para restaurantes: pedidos, stock y caja en un mismo lugar, hecho a la medida de cómo trabaja un salón.</p><a href="https://sincroresto.com" target="_blank" rel="noopener">sincroresto.com</a></div>
+        </article>
+        <article class="obra">
+          <div class="ventana"><div class="puntos"><i></i><i></i><i></i></div><img src="caso-justadama.webp" width="1200" height="750" loading="lazy" alt="Inicio de JustaDama"></div>
+          <div><h3>JustaDama</h3><p>Redacta con IA los documentos para constituir una sociedad en Argentina, listos para presentar.</p><a href="https://justadama.com.ar" target="_blank" rel="noopener">justadama.com.ar</a></div>
+        </article>
+        <article class="obra">
+          <div class="ventana"><div class="puntos"><i></i><i></i><i></i></div><div class="pronto" role="img" aria-label="Tokeo">Tokeo</div></div>
+          <div><h3>Tokeo</h3><p>Muy pronto.</p></div>
+        </article>
+      </div>
+      <div class="indicador" aria-label="Elegir trabajo"></div>
     </div>
   </section>
 
   <section class="bloque" id="como">
     <div class="contenedor">
-      <h2>Cómo trabajamos</h2>
-      <p class="intro">Sin vueltas y sin pagar por cosas que no vas a usar.</p>
-      <ol class="pasos">
-        <li><b>Nos contás</b><span>Una llamada de 15 minutos para entender qué te come el tiempo hoy.</span></li>
-        <li><b>Lo armamos</b><span>Te mostramos el sistema andando con tus datos, no una maqueta.</span></li>
-        <li><b>Lo usás</b><span>Lo ponemos en marcha y lo ajustamos con lo que vas viendo.</span></li>
+      <h2 data-aparece>Cómo trabajamos</h2>
+      <p class="intro">Sin vueltas, sin maquetas y sin pagar por cosas que no vas a usar.</p>
+      <ol class="pasos" data-solo-marca>
+        <li style="--orden: 0" data-aparece><span class="num" aria-hidden="true">1</span><span class="cuando">15 minutos</span><b>Nos contás</b><p>Una llamada corta para entender qué te come el tiempo: la planilla que nadie actualiza, los pedidos que se pierden en el WhatsApp, las facturas en una caja.</p></li>
+        <li style="--orden: 1" data-aparece><span class="num" aria-hidden="true">2</span><span class="cuando">Con tus datos</span><b>Lo armamos</b><p>Te mostramos el sistema andando con tus datos reales, no una presentación. Si algo no cierra, lo cambiamos antes de seguir.</p></li>
+        <li style="--orden: 2" data-aparece><span class="num" aria-hidden="true">3</span><span class="cuando">Y seguimos</span><b>Lo usás</b><p>Lo ponemos en marcha con tu equipo y lo vamos ajustando con lo que ves en el día a día. No te quedás solo con un sistema nuevo.</p></li>
       </ol>
     </div>
   </section>
 
   <section class="bloque" id="contacto">
     <div class="contenedor">
-      <h2>Hablemos</h2>
-      <p class="intro">Contanos qué querés resolver y te respondemos con horarios para una llamada.</p>
-      <div class="tarjeta">
-        <a href="mailto:sincroar.contacto@gmail.com?subject=Consulta%20desde%20la%20web"><small>Mail</small><b>sincroar.contacto@gmail.com</b></a>
-        <a href="https://www.instagram.com/sincro_ar/" target="_blank" rel="noopener"><small>Instagram</small><b>@sincro_ar</b></a>
-        <a href="https://www.facebook.com/profile.php?id=61595291607526" target="_blank" rel="noopener"><small>Facebook</small><b>Sincro</b></a>
+      <div class="contacto-grilla">
+        <div>
+          <h2 data-aparece>Hablemos</h2>
+          <p class="intro">Contanos qué querés resolver y te respondemos con horarios para una llamada.</p>
+          <div class="redes">
+            <a class="red wa" style="--orden: 0" data-aparece="izq" href="https://wa.me/5491141879467?text=Hola%20Sincro%2C%20quiero%20consultar%20por%20un%20sistema%20para%20mi%20negocio" target="_blank" rel="noopener">
+              <span class="icono" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.8l5.1-1.3A9.7 9.7 0 1 0 12 2.2zm0 17.7c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.8 4.4 3.9.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2z"/></svg></span>
+              <span><small>WhatsApp</small><b>+54 9 11 4187-9467</b></span>
+            </a>
+            <a class="red ig" style="--orden: 1" data-aparece="izq" href="https://www.instagram.com/sincro_ar/" target="_blank" rel="noopener">
+              <span class="icono" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+              <span><small>Instagram</small><b>@sincro_ar</b></span>
+            </a>
+            <a class="red fb" style="--orden: 2" data-aparece="izq" href="https://www.facebook.com/profile.php?id=61595291607526" target="_blank" rel="noopener">
+              <span class="icono" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.6h2.6l.4-3h-3V8.5c0-.9.3-1.5 1.5-1.5h1.6V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21h3.1z"/></svg></span>
+              <span><small>Facebook</small><b>Sincro</b></span>
+            </a>
+            <a class="red mail" style="--orden: 3" data-aparece="izq" href="mailto:sincroar.contacto@gmail.com?subject=Consulta%20desde%20la%20web">
+              <span class="icono" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6" stroke-linecap="round"/></svg></span>
+              <span><small>Mail</small><b>sincroar.contacto@gmail.com</b></span>
+            </a>
+          </div>
+        </div>
+
+        <form class="form" id="form-contacto" novalidate data-aparece="zoom" style="--orden: 1">
+          <div class="campo"><label for="f-nombre">Nombre</label><input id="f-nombre" name="nombre" autocomplete="name" required></div>
+          <div class="campo"><label for="f-negocio">Negocio</label><input id="f-negocio" name="negocio" autocomplete="organization" placeholder="Ej.: Panadería Don Luis"></div>
+          <div class="campo"><label for="f-whatsapp">WhatsApp</label><input id="f-whatsapp" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" placeholder="11 2345 6789"></div>
+          <div class="campo"><label for="f-mail">Mail</label><input id="f-mail" name="mail" type="email" autocomplete="email"></div>
+          <div class="campo ancho"><label for="f-tema">¿Qué te gustaría resolver?</label>
+            <select id="f-tema" name="tema">
+              <option>Facturas que se cargan solas</option>
+              <option>Pedidos directo al sistema</option>
+              <option>Stock que avisa</option>
+              <option>Turnos y agenda</option>
+              <option>Cobranzas</option>
+              <option>Reportes del negocio</option>
+              <option>Otra cosa</option>
+            </select>
+          </div>
+          <div class="campo ancho"><label for="f-mensaje">Contanos un poco más</label><textarea id="f-mensaje" name="mensaje" placeholder="Cómo lo hacés hoy y qué te gustaría que pase."></textarea></div>
+          <label class="consentimiento"><input type="checkbox" name="acepta_whatsapp">Acepto que Sincro me escriba por WhatsApp para coordinar la llamada.</label>
+          <button class="boton enviar" type="submit">Enviar consulta</button>
+          <p class="nota" aria-live="polite">Dejanos un WhatsApp o un mail para poder responderte.</p>
+        </form>
+      </div>
+
+      <div class="faq" id="preguntas">
+        <h2 data-aparece>Preguntas frecuentes</h2>
+        <div>
+          <details data-aparece><summary>¿Cuánto cuesta?</summary><div class="respuesta"><p>Depende de lo que haya que armar. Después de la llamada te pasamos un presupuesto por escrito, antes de empezar, y no pagás por funciones que no vas a usar.</p></div></details>
+          <details data-aparece><summary>¿Cuánto tarda?</summary><div class="respuesta"><p>Depende del sistema. En la llamada te decimos plazos concretos, y en el camino te vamos mostrando avances andando con tus datos.</p></div></details>
+          <details data-aparece><summary>¿Tengo que dejar lo que uso hoy?</summary><div class="respuesta"><p>No. Nos adaptamos a lo que ya usás: tu WhatsApp, tus planillas, tu mail o tu sistema de facturación. La idea es sacarte trabajo, no sumarte otro programa.</p></div></details>
+          <details data-aparece><summary>¿Necesito saber de computación?</summary><div class="respuesta"><p>No. Lo armamos para que lo use cualquiera de tu equipo, y te acompañamos en la puesta en marcha.</p></div></details>
+          <details data-aparece><summary>¿Qué pasa con mis datos?</summary><div class="respuesta"><p>Tus datos son tuyos y se usan solo para que el sistema funcione. Podés leer el detalle en la <a href="privacidad.html">política de privacidad</a>.</p></div></details>
+          <details data-aparece><summary>¿Trabajan con negocios de todo el país?</summary><div class="respuesta"><p>Sí. Las llamadas y la puesta en marcha se hacen a distancia, así que da igual dónde esté tu negocio.</p></div></details>
+        </div>
       </div>
     </div>
   </section>
@@ -247,9 +431,160 @@
 
 <footer class="pie">
   <div class="contenedor">
-    <span>© 2026 Sincro. Software a medida para pymes de Argentina.</span>
-    <a href="privacidad.html">Política de privacidad</a>
+    <div class="pie-llamado">
+      <p>¿Qué te gustaría dejar de cargar a mano?</p>
+      <a class="boton" href="https://wa.me/5491141879467?text=Hola%20Sincro%2C%20quiero%20consultar%20por%20un%20sistema%20para%20mi%20negocio" target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+    </div>
+    <div class="pie-columnas">
+      <div class="pie-marca">
+        <a class="marca" href="#"><img src="logo.png" alt="">Sincro</a>
+        <p>Software y automatizaciones a medida para pymes de Argentina.</p>
+        <div class="pie-redes">
+          <a href="https://wa.me/5491141879467?text=Hola%20Sincro%2C%20quiero%20consultar%20por%20un%20sistema%20para%20mi%20negocio" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.8l5.1-1.3A9.7 9.7 0 1 0 12 2.2zm0 17.7c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.8 4.4 3.9.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2z"/></svg></a>
+          <a href="https://www.instagram.com/sincro_ar/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.facebook.com/profile.php?id=61595291607526" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.6h2.6l.4-3h-3V8.5c0-.9.3-1.5 1.5-1.5h1.6V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21h3.1z"/></svg></a>
+          <a href="mailto:sincroar.contacto@gmail.com" aria-label="Mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+      <nav aria-label="Secciones">
+        <h3>La página</h3>
+        <a href="#resolvemos">Qué resolvemos</a>
+        <a href="#trabajos">Trabajos</a>
+        <a href="#como">Cómo trabajamos</a>
+        <a href="#preguntas">Preguntas frecuentes</a>
+      </nav>
+      <div>
+        <h3>Contacto</h3>
+        <a href="https://wa.me/5491141879467?text=Hola%20Sincro%2C%20quiero%20consultar%20por%20un%20sistema%20para%20mi%20negocio" target="_blank" rel="noopener">+54 9 11 4187-9467</a>
+        <a href="mailto:sincroar.contacto@gmail.com">sincroar.contacto@gmail.com</a>
+        <a href="https://www.instagram.com/sincro_ar/" target="_blank" rel="noopener">@sincro_ar</a>
+      </div>
+      <div>
+        <h3>Trabajos</h3>
+        <a href="https://sincroresto.com" target="_blank" rel="noopener">SincroResto</a>
+        <a href="https://justadama.com.ar" target="_blank" rel="noopener">JustaDama</a>
+      </div>
+    </div>
+    <div class="pie-final">
+      <span>© 2026 Sincro. Hecho en Argentina.</span>
+      <nav class="pie-legal" aria-label="Legales">
+        <a href="privacidad.html">Política de privacidad</a>
+        <a href="terminos.html">Términos y condiciones</a>
+        <a href="eliminacion-de-datos.html">Eliminación de datos</a>
+      </nav>
+    </div>
   </div>
 </footer>
+
+<script>
+  // Al scrollear: lo que entra en pantalla aparece (una sola vez).
+  (function () {
+    const cosas = document.querySelectorAll('[data-aparece], [data-solo-marca]');
+    if (!('IntersectionObserver' in window)) { cosas.forEach((c) => c.classList.add('visto')); return; }
+    const ojo = new IntersectionObserver((entradas) => {
+      entradas.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visto'); ojo.unobserve(e.target); } });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    cosas.forEach((c) => ojo.observe(c));
+  })();
+
+  // Carrusel: flechas, rayitas y cual se esta viendo.
+  (function () {
+    const pista = document.querySelector('.pista');
+    const obras = [...pista.children];
+    const indicador = document.querySelector('.indicador');
+    const flechas = document.querySelectorAll('.flechas button');
+    const paso = () => obras[1].offsetLeft - obras[0].offsetLeft;
+    const ir = (i) => pista.scrollTo({ left: Math.max(0, Math.min(obras.length - 1, i)) * paso(), behavior: 'smooth' });
+    const rayas = obras.map((obra, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', obra.querySelector('h3').textContent);
+      b.addEventListener('click', () => ir(i));
+      indicador.append(b);
+      return b;
+    });
+    const marcar = () => {
+      const fin = pista.scrollLeft + pista.clientWidth >= pista.scrollWidth - 4;
+      const i = fin ? obras.length - 1 : Math.round(pista.scrollLeft / paso());
+      rayas.forEach((r, j) => r.setAttribute('aria-current', String(j === i)));
+      flechas[0].disabled = pista.scrollLeft <= 4;
+      flechas[1].disabled = fin;
+    };
+    flechas.forEach((f) => f.addEventListener('click', () => ir(Math.round(pista.scrollLeft / paso()) + Number(f.dataset.ir))));
+    pista.addEventListener('scroll', marcar, { passive: true });
+    marcar();
+
+    // Pasa solo cada 5 segundos, pero recien cuando llegas a esta seccion.
+    // Se frena con el mouse encima de un trabajo y vuelve a contar si lo moves a mano.
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let visible = false;
+      let encima = false;
+      let reloj;
+      const contar = () => {
+        clearTimeout(reloj);
+        if (!visible || encima) return;
+        reloj = setTimeout(() => {
+          if (document.hidden) return contar();
+          const fin = pista.scrollLeft + pista.clientWidth >= pista.scrollWidth - 4;
+          ir(fin ? 0 : Math.round(pista.scrollLeft / paso()) + 1);
+          contar();
+        }, 5000);
+      };
+      new IntersectionObserver(([e]) => { visible = e.isIntersecting; contar(); }, { threshold: 0.5 }).observe(pista);
+      pista.addEventListener('mouseenter', () => { encima = true; contar(); });
+      pista.addEventListener('mouseleave', () => { encima = false; contar(); });
+      pista.addEventListener('touchstart', () => clearTimeout(reloj), { passive: true });
+      pista.addEventListener('touchend', contar, { passive: true });
+      document.querySelectorAll('.flechas button').forEach((f) => f.addEventListener('click', contar));
+      indicador.addEventListener('click', contar);
+    }
+  })();
+
+  // FAQ: la respuesta se despliega en vez de aparecer de golpe.
+  (function () {
+    const suave = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.querySelectorAll('.faq details').forEach((d) => {
+      const caja = d.querySelector('.respuesta');
+      d.querySelector('summary').addEventListener('click', (e) => {
+        if (!suave) return;
+        e.preventDefault();
+        if (d.dataset.moviendo) return;
+        d.dataset.moviendo = '1';
+        const abrir = !d.open;
+        if (abrir) d.open = true;
+        const alto = caja.scrollHeight;
+        const anim = caja.animate(
+          abrir ? [{ height: '0px', opacity: 0 }, { height: alto + 'px', opacity: 1 }] : [{ height: alto + 'px', opacity: 1 }, { height: '0px', opacity: 0 }],
+          { duration: abrir ? 420 : 320, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' },
+        );
+        anim.onfinish = () => { if (!abrir) d.open = false; delete d.dataset.moviendo; };
+      });
+    });
+  })();
+
+  // Formulario: por ahora arma el mail con lo que completaste.
+  document.getElementById('form-contacto').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = e.target;
+    const nota = f.querySelector('.nota');
+    if (!f.nombre.value.trim() || (!f.whatsapp.value.trim() && !f.mail.value.trim())) {
+      nota.dataset.estado = '';
+      nota.textContent = 'Falta tu nombre y un WhatsApp o mail para poder responderte.';
+      return;
+    }
+    const cuerpo = [
+      'Nombre: ' + f.nombre.value,
+      'Negocio: ' + f.negocio.value,
+      'WhatsApp: ' + f.whatsapp.value + (f.acepta_whatsapp.checked ? ' (acepta que le escriban por WhatsApp)' : ''),
+      'Mail: ' + f.mail.value,
+      'Quiere resolver: ' + f.tema.value,
+      '',
+      f.mensaje.value,
+    ].join('\n');
+    location.href = 'mailto:sincroar.contacto@gmail.com?subject=' + encodeURIComponent('Consulta de ' + f.nombre.value) + '&body=' + encodeURIComponent(cuerpo);
+    nota.dataset.estado = 'ok';
+    nota.textContent = 'Se abrió tu mail con la consulta armada: solo falta tocar Enviar.';
+  });
+</script>
 </body>
 </html>
