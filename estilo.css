@@ -204,7 +204,6 @@ html.menu-abierto, html.menu-abierto body { overflow: hidden; }
     transition: opacity 0.25s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.25s ease;
   }
   .barra nav.abierto { opacity: 1; visibility: visible; transform: none; }
-  .barra nav a.pildora { justify-content: center; height: 52px; font-size: 1.02rem; }
 }
 
 /* ---- Al scrollear: cada cosa entra a su manera (sin JS se ve todo) ---- */
@@ -311,9 +310,44 @@ html.menu-abierto, html.menu-abierto body { overflow: hidden; }
 @media (max-width: 900px) { .contacto-pag { padding: 124px 0 72px; } }
 
 /* ---- Nav: tres pildoras; la pagina actual va llena ---- */
-.barra nav { gap: 8px; }
-.barra nav a.pildora:not([aria-current="page"]) { background: transparent; color: var(--tinta); box-shadow: inset 0 0 0 1px rgba(26, 33, 46, 0.2); }
-.barra nav a.pildora:not([aria-current="page"]):hover { background: var(--tinta); color: var(--papel); box-shadow: 0 12px 24px rgba(26, 33, 46, 0.24); }
-.barra nav a.pildora[aria-current="page"] { box-shadow: 0 8px 18px rgba(26, 33, 46, 0.18); }
 .cabeza h1 { margin: 0 0 14px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; font-size: clamp(2rem, 2.6vw + 0.6rem, 2.75rem); }
 @media (max-width: 480px) { .red { padding: 14px 16px; gap: 12px; } .red b { font-size: 0.95rem; } }
+
+/* ---- Nav: enlaces simples con desplegable, y Contacto como boton ---- */
+[id] { scroll-margin-top: 96px; }
+.barra nav { gap: 26px; }
+.nav-grupo { position: relative; display: flex; align-items: center; gap: 2px; }
+.barra nav a.nav-link { font-family: var(--titulo); font-size: 0.98rem; font-weight: 500; color: var(--tinta); opacity: 0.82; text-decoration: none; padding: 10px 2px; transition: opacity 0.2s ease; }
+.barra nav a.nav-link:hover, .nav-grupo:focus-within .nav-link { opacity: 1; }
+.barra nav a.nav-link[aria-current="page"] { opacity: 1; font-weight: 600; text-decoration: underline; text-decoration-color: var(--azul); text-decoration-thickness: 2px; text-underline-offset: 8px; }
+.nav-flecha { display: grid; place-items: center; width: 24px; height: 24px; border: 0; border-radius: 50%; background: transparent; color: var(--tinta); opacity: 0.6; cursor: pointer; padding: 0; transition: opacity 0.2s ease, transform 0.3s ease; }
+.nav-flecha svg { width: 14px; height: 14px; }
+.nav-flecha:hover, .nav-flecha:focus-visible { opacity: 1; }
+.nav-flecha[aria-expanded="true"] { transform: rotate(180deg); opacity: 1; }
+.nav-sub { position: absolute; top: 100%; left: -16px; z-index: 5; padding-top: 14px; min-width: 260px; opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity 0.22s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.22s; }
+.nav-sub-in { display: grid; gap: 2px; padding: 8px; border-radius: 18px; background: #fff; border: 1px solid var(--linea); box-shadow: 0 28px 56px -18px rgba(26, 33, 46, 0.35); }
+.nav-sub-in a { display: block; padding: 10px 14px; border-radius: 11px; font-size: 0.95rem; color: var(--tinta); text-decoration: none; transition: background 0.15s ease; }
+.nav-sub-in a:hover, .nav-sub-in a:focus-visible { background: #eaf2ff; outline: none; }
+.nav-grupo:hover .nav-sub, .nav-grupo:focus-within .nav-sub, .nav-grupo.abierto .nav-sub { opacity: 1; visibility: visible; transform: none; }
+.nav-grupo.cerrado .nav-sub { opacity: 0; visibility: hidden; transform: translateY(8px); }
+.barra nav a.boton-nav {
+  display: inline-flex; align-items: center; height: 48px; padding: 0 30px; border-radius: 999px;
+  background: var(--azul); color: #fff; font-family: var(--titulo); font-size: 1rem; font-weight: 600; text-decoration: none;
+  box-shadow: 0 10px 26px -6px rgba(1, 102, 254, 0.55), 0 0 0 4px rgba(1, 102, 254, 0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+.barra nav a.boton-nav:hover { transform: translateY(-2px); background: #0a5fe6; box-shadow: 0 16px 32px -8px rgba(1, 102, 254, 0.65), 0 0 0 5px rgba(1, 102, 254, 0.14); }
+.barra nav a.boton-nav:focus-visible { outline: 2px solid var(--tinta); outline-offset: 3px; }
+@media (max-width: 720px) {
+  .barra nav { gap: 4px; max-height: calc(100svh - 120px); overflow-y: auto; }
+  .nav-grupo { display: block; }
+  .nav-flecha { display: none; }
+  .barra nav a.nav-link { display: block; padding: 12px 14px 6px; font-size: 1.08rem; font-weight: 700; opacity: 1; text-decoration: none; }
+  .barra nav a.nav-link[aria-current="page"] { color: var(--azul); text-decoration: none; }
+  .nav-sub { position: static; padding: 0; min-width: 0; opacity: 1; visibility: visible; transform: none; transition: none; }
+  .nav-grupo.cerrado .nav-sub { opacity: 1; visibility: visible; transform: none; }
+  .nav-sub-in { padding: 0 0 6px; border: 0; box-shadow: none; background: transparent; border-radius: 0; }
+  .nav-sub-in a { padding: 9px 14px 9px 26px; font-size: 0.98rem; color: var(--tinta-suave); }
+  .barra nav a.boton-nav { justify-content: center; height: 54px; margin-top: 8px; font-size: 1.05rem; }
+}
+.barra nav a.nav-link:focus-visible { border-radius: 8px; outline-offset: 3px; }

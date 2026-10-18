@@ -26,6 +26,33 @@
     matchMedia('(min-width: 721px)').addEventListener('change', (e) => { if (e.matches) poner(false); });
   }
 
+  // ---- Desplegables del menu: hover, foco y toque; Escape los cierra ----
+  const grupos = [...document.querySelectorAll('.nav-grupo')];
+  const sincronizar = (g) => {
+    const abierto = !g.classList.contains('cerrado') && (g.matches(':hover') || g.matches(':focus-within') || g.classList.contains('abierto'));
+    g.querySelector('.nav-flecha').setAttribute('aria-expanded', String(abierto));
+  };
+  grupos.forEach((g) => {
+    g.addEventListener('mouseleave', () => { g.classList.remove('cerrado'); setTimeout(() => sincronizar(g), 0); });
+    g.addEventListener('mouseenter', () => setTimeout(() => sincronizar(g), 0));
+    g.addEventListener('focusin', () => { g.classList.remove('cerrado'); sincronizar(g); });
+    g.addEventListener('focusout', () => setTimeout(() => sincronizar(g), 0));
+    g.querySelector('.nav-flecha').addEventListener('click', () => { g.classList.remove('cerrado'); g.classList.toggle('abierto'); sincronizar(g); });
+  });
+  document.addEventListener('click', (e) => {
+    grupos.forEach((g) => { if (!g.contains(e.target) && g.classList.contains('abierto')) { g.classList.remove('abierto'); sincronizar(g); } });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    grupos.forEach((g) => {
+      if (!g.matches(':hover') && !g.matches(':focus-within') && !g.classList.contains('abierto')) return;
+      g.classList.remove('abierto');
+      g.classList.add('cerrado');
+      if (g.contains(document.activeElement)) g.querySelector('.nav-link').focus();
+      sincronizar(g);
+    });
+  });
+
   // ---- Al scrollear: lo que entra en pantalla aparece (una sola vez), de a poquito ----
   const cosas = [...document.querySelectorAll('[data-aparece], [data-solo-marca]')];
   cosas.forEach((c) => {

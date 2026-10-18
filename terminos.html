@@ -9,16 +9,35 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="estilo.css?v=9">
+<link rel="stylesheet" href="estilo.css?v=11">
 </head>
 <body>
 <header class="barra">
   <div class="barra-adentro">
     <a class="marca" href="index.html"><img src="logo.png" alt="">Sincro</a>
     <nav id="menu-principal" aria-label="Principal">
-      <a class="pildora" href="index.html">Inicio</a>
-      <a class="pildora" href="agentes.html">Agentes</a>
-      <a class="pildora" href="contacto.html">Contacto</a>
+      <div class="nav-grupo">
+        <a class="nav-link" href="index.html">Inicio</a>
+        <button class="nav-flecha" type="button" aria-expanded="false" aria-controls="sub-inicio" aria-label="Secciones de Inicio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="nav-sub" id="sub-inicio"><div class="nav-sub-in">
+          <a href="index.html#resolvemos">Qué resolvemos</a>
+          <a href="index.html#trabajos">Trabajos</a>
+          <a href="index.html#como">Cómo trabajamos</a>
+          <a href="index.html#preguntas">Preguntas</a>
+        </div></div>
+      </div>
+      <div class="nav-grupo">
+        <a class="nav-link" href="agentes.html">Agentes</a>
+        <button class="nav-flecha" type="button" aria-expanded="false" aria-controls="sub-agentes" aria-label="Secciones de Agentes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="nav-sub" id="sub-agentes"><div class="nav-sub-in">
+          <a href="agentes.html#asistente-de-marketing">Asistente de marketing</a>
+          <a href="agentes.html#asistente-de-contenido">Asistente de contenido</a>
+          <a href="agentes.html#asistente-puente">Asistente Puente</a>
+          <a href="agentes.html#reglas">Las reglas</a>
+          <a href="agentes.html#preguntas">Preguntas</a>
+        </div></div>
+      </div>
+      <a class="boton-nav" href="contacto.html">Contacto</a>
     </nav>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menú"><span></span><span></span><span></span></button>
   </div>
@@ -110,6 +129,6 @@
     </div>
   </div>
 </footer>
-<script src="sitio.js?v=2" defer></script>
+<script src="sitio.js?v=3" defer></script>
 </body>
 </html>
