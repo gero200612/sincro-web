@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contacto | Sincro</title>
+<meta name="description" content="Contanos qué querés resolver y te respondemos con horarios para una llamada. Escribinos por WhatsApp, mail o dejá tu consulta en el formulario.">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilo.css?v=9">
+<script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+<header class="barra">
+  <div class="barra-adentro">
+    <a class="marca" href="index.html"><img src="logo.png" alt="">Sincro</a>
+    <nav id="menu-principal" aria-label="Principal">
+      <a class="pildora" href="index.html">Inicio</a>
+      <a class="pildora" href="agentes.html">Agentes</a>
+      <a class="pildora" href="contacto.html" aria-current="page">Contacto</a>
+    </nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+  <section class="contacto-pag">
+    <div class="contenedor">
+      <div class="contacto-grilla">
+        <div>
+          <div class="cabeza" data-aparece>
+            <p class="etiqueta-sec">Contacto</p>
+            <h1>Hablemos</h1>
+            <p class="intro">Contanos qué querés resolver y te respondemos con horarios para una llamada.</p>
+          </div>
+          <div class="redes">
+            <a class="red wa" style="--orden: 0" data-aparece="izq" href="https://wa.me/5491141879467?text=Hola%20Sincro%2C%20quiero%20consultar%20por%20un%20sistema%20para%20mi%20negocio" target="_blank" rel="noopener">
+              <span class="icono" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.8l5.1-1.3A9.7 9.7 0 1 0 12 2.2zm0 17.7c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.8 4.4 3.9.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2z"/></svg></span>
+              <span><small>WhatsApp</small><b>+54 9 11 4187-9467</b></span>
+            </a>
+            <a class="red ig" style="--orden: 1" data-aparece="izq" href="https://www.instagram.com/sincro_ar/" target="_blank" rel="noopener">
+              <span class="icono" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+              <span><small>Instagram</small><b>@sincro_ar</b></span>
+            </a>
+            <a class="red mail" style="--orden: 2" data-aparece="izq" href="mailto:sincroar.contacto@gmail.com?subject=Consulta%20desde%20la%20web">
+              <span class="icono" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6" stroke-linecap="round"/></svg></span>
+              <span><small>Mail</small><b>sincroar.contacto@gmail.com</b></span>
+            </a>
+          </div>
+          <p class="empresa">Sincro, una marca de Docwell Argentina S.A.<br>CUIT 30-71730509-0 · Hecho en Argentina.</p>
+        </div>
+
+        <form class="form" id="form-contacto" novalidate data-aparece="zoom" style="--orden: 1">
+          <div class="campo"><label for="f-nombre">Nombre</label><input id="f-nombre" name="nombre" autocomplete="name" required></div>
+          <div class="campo"><label for="f-negocio">Negocio</label><input id="f-negocio" name="negocio" autocomplete="organization" placeholder="Ej.: Panadería Don Luis"></div>
+          <div class="campo"><label for="f-whatsapp">WhatsApp</label><input id="f-whatsapp" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" placeholder="11 2345 6789"></div>
+          <div class="campo"><label for="f-mail">Mail</label><input id="f-mail" name="mail" type="email" autocomplete="email"></div>
+          <div class="campo ancho"><label for="f-tema">¿Qué te gustaría resolver?</label>
+            <select id="f-tema" name="tema">
+              <option>Facturas que se cargan solas</option>
+              <option>Pedidos directo al sistema</option>
+              <option>Stock que avisa</option>
+              <option>Turnos y agenda</option>
+              <option>Cobranzas</option>
+              <option>Reportes del negocio</option>
+              <option>Otra cosa</option>
+            </select>
+          </div>
+          <div class="campo ancho"><label for="f-mensaje">Contanos un poco más</label><textarea id="f-mensaje" name="mensaje" placeholder="Cómo lo hacés hoy y qué te gustaría que pase."></textarea></div>
+          <div class="trampa" aria-hidden="true"><label>Tu sitio web <input name="sitio" tabindex="-1" autocomplete="off"></label></div>
+          <label class="consentimiento"><input type="checkbox" name="acepta_whatsapp">Acepto que Sincro me escriba por WhatsApp para coordinar la llamada.</label>
+          <button class="boton enviar" type="submit">Enviar consulta</button>
+          <p class="nota" aria-live="polite">Dejanos un WhatsApp o un mail para poder responderte.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <div class="pie-llamado">
+      <p>¿Qué te gustaría dejar de cargar a mano?</p>
+      <a class="boton" href="https://wa.me/5491141879467?text=Hola%20Sincro%2C%20quiero%20consultar%20por%20un%20sistema%20para%20mi%20negocio" target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+    </div>
+    <div class="pie-columnas">
+      <div class="pie-marca">
+        <a class="marca" href="index.html"><img src="logo.png" alt="">Sincro</a>
+        <p>Software y automatizaciones a medida para pymes de Argentina.</p>
+        <div class="pie-redes">
+          <a href="https://wa.me/5491141879467?text=Hola%20Sincro%2C%20quiero%20consultar%20por%20un%20sistema%20para%20mi%20negocio" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.8l5.1-1.3A9.7 9.7 0 1 0 12 2.2zm0 17.7c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.8 4.4 3.9.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2z"/></svg></a>
+          <a href="https://www.instagram.com/sincro_ar/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.facebook.com/profile.php?id=61595291607526" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.6h2.6l.4-3h-3V8.5c0-.9.3-1.5 1.5-1.5h1.6V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21h3.1z"/></svg></a>
+          <a href="mailto:sincroar.contacto@gmail.com" aria-label="Mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6" stroke-linecap="round"/></svg></a>
+        </div>
+      </div>
+      <nav aria-label="Secciones">
+        <h3>La página</h3>
+        <a href="index.html">Inicio</a>
+        <a href="agentes.html">Agentes</a>
+        <a href="contacto.html">Contacto</a>
+        <a href="index.html#resolvemos">Qué resolvemos</a>
+        <a href="index.html#trabajos">Trabajos</a>
+        <a href="index.html#como">Cómo trabajamos</a>
+        <a href="index.html#preguntas">Preguntas frecuentes</a>
+      </nav>
+      <div>
+        <h3>Contacto</h3>
+        <a href="https://wa.me/5491141879467?text=Hola%20Sincro%2C%20quiero%20consultar%20por%20un%20sistema%20para%20mi%20negocio" target="_blank" rel="noopener">+54 9 11 4187-9467</a>
+        <a href="mailto:sincroar.contacto@gmail.com">sincroar.contacto@gmail.com</a>
+        <a href="https://www.instagram.com/sincro_ar/" target="_blank" rel="noopener">@sincro_ar</a>
+      </div>
+      <div>
+        <h3>Trabajos</h3>
+        <a href="https://sincroresto.com" target="_blank" rel="noopener">SincroResto</a>
+        <a href="https://justadama.com.ar" target="_blank" rel="noopener">JustaDama</a>
+      </div>
+    </div>
+    <div class="pie-final">
+      <span>© 2026 Sincro, una marca de Docwell Argentina S.A. · CUIT 30-71730509-0 · Hecho en Argentina.</span>
+      <nav class="pie-legal" aria-label="Legales">
+        <a href="privacidad.html">Política de privacidad</a>
+        <a href="terminos.html">Términos y condiciones</a>
+        <a href="eliminacion-de-datos.html">Eliminación de datos</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script src="sitio.js?v=2" defer></script>
+</body>
+</html>
