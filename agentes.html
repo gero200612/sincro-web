@@ -50,11 +50,12 @@
 
   /* ---- En todos los agentes + preguntas ---- */
   .ag-comun { padding: 88px 0 24px; border-top: 1px solid var(--linea); }
-  .baldosas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .baldosa { padding: 30px; border-radius: 24px; background: var(--tinta); color: var(--papel); }
-  .baldosa svg { width: 46px; height: 46px; padding: 11px; border-radius: 14px; background: var(--azul); color: #fff; margin-bottom: 20px; }
-  .baldosa h3 { margin: 0 0 8px; font-size: 1.2rem; font-weight: 600; }
-  .baldosa p { margin: 0; color: rgba(250, 248, 244, 0.78); font-size: 0.98rem; line-height: 1.55; }
+  .reglas { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); background: var(--tinta); color: var(--papel); border-radius: 28px; overflow: hidden; }
+  .regla { padding: 40px 36px 44px; }
+  .regla + .regla { border-left: 1px solid rgba(250, 248, 244, 0.12); }
+  .regla-num { display: block; font-family: var(--titulo); font-size: 2.6rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1; color: var(--azul); margin-bottom: 22px; }
+  .regla h3 { margin: 0 0 10px; font-size: 1.25rem; font-weight: 600; }
+  .regla p { margin: 0; color: rgba(250, 248, 244, 0.78); font-size: 0.98rem; line-height: 1.6; }
   .ag-faq { padding: 72px 0 104px; }
 
   @media (max-width: 900px) {
@@ -63,7 +64,9 @@
     .ag-hero-img img { width: 112%; margin-left: -6%; }
     .ag-sec.invertido .ag-fila > .vista { order: 0; }
     .ag-sec { padding: 64px 0; }
-    .ag-ejemplos, .baldosas { grid-template-columns: 1fr; }
+    .ag-ejemplos, .reglas { grid-template-columns: 1fr; }
+    .regla { padding: 30px 26px 32px; }
+    .regla + .regla { border-left: 0; border-top: 1px solid rgba(250, 248, 244, 0.12); }
     .ag-comun { padding-top: 64px; }
     .ag-abajo { margin-top: 32px; }
   }
@@ -214,26 +217,26 @@
     <div class="contenedor">
       <div class="cabeza" data-aparece>
         <p class="etiqueta-sec">Siempre</p>
-        <h2 id="t-comun">En todos los agentes</h2>
-        <p class="sub">Tres reglas que valen para cualquier agente de Sincro.</p>
+        <h2 id="t-comun">Las reglas de todos los agentes</h2>
+        <p class="sub">Valen para cualquier agente de Sincro, los de hoy y los que vengan.</p>
       </div>
-      <div class="baldosas">
-        <div class="baldosa" data-aparece>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>
-          <h3>Vos elegís el modo</h3>
-          <p>Automático, pedir permiso o solo consejos, con un tope por cada acción.</p>
-        </div>
-        <div class="baldosa" data-aparece>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
-          <h3>Tus datos se quedan</h3>
-          <p>Los datos personales nunca salen de tu sistema.</p>
-        </div>
-        <div class="baldosa" data-aparece>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
-          <h3>Ves todo</h3>
-          <p>Cada acción queda registrada: qué hizo el agente y por qué.</p>
-        </div>
-      </div>
+      <ol class="reglas">
+        <li class="regla" data-aparece>
+          <span class="regla-num" aria-hidden="true">01</span>
+          <h3>Vos ponés el límite</h3>
+          <p>Cada acción tiene su modo: el agente la hace solo, te pide permiso o solo te aconseja. Y un tope que nunca se pasa.</p>
+        </li>
+        <li class="regla" data-aparece>
+          <span class="regla-num" aria-hidden="true">02</span>
+          <h3>Tus datos no viajan</h3>
+          <p>Los datos personales de tus clientes se quedan en tu sistema. El agente trabaja sin ver nombres, teléfonos ni mails.</p>
+        </li>
+        <li class="regla" data-aparece>
+          <span class="regla-num" aria-hidden="true">03</span>
+          <h3>Todo queda a la vista</h3>
+          <p>Cada cosa que hace queda registrada con el porqué, para que la revises cuando quieras.</p>
+        </li>
+      </ol>
     </div>
   </section>
 
