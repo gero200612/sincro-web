@@ -193,7 +193,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--azul); outline-
 .menu-btn[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
 .menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .menu-btn[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
-.menu-velo { position: fixed; inset: 0; z-index: 40; background: rgba(26, 33, 46, 0.4); opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+.menu-velo { position: fixed; inset: 0; z-index: 40; background: rgba(14, 19, 30, 0.6); opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
 .menu-velo.visible { opacity: 1; visibility: visible; }
 html.menu-abierto, html.menu-abierto body { overflow: hidden; }
 @media (max-width: 720px) {
@@ -201,7 +201,7 @@ html.menu-abierto, html.menu-abierto body { overflow: hidden; }
   .barra nav {
     position: absolute; top: calc(100% + 10px); left: 0; right: 0;
     flex-direction: column; align-items: stretch; gap: 2px; padding: 10px;
-    border-radius: 24px; background: rgba(250, 248, 244, 0.98); border: 1px solid var(--linea);
+    border-radius: 24px; background: #faf8f4; border: 1px solid var(--linea);
     box-shadow: 0 28px 60px -14px rgba(26, 33, 46, 0.38);
     opacity: 0; visibility: hidden; transform: translateY(-10px) scale(0.98); transform-origin: top right;
     transition: opacity 0.25s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.25s ease;
