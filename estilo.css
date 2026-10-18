@@ -1,4 +1,4 @@
-/* Sincro, con el lenguaje de JustaDama: papel, tinta y el azul del logo, todo en Lora. */
+/* Sincro, con el lenguaje de JustaDama: papel, tinta y el azul del logo, titulos en Plus Jakarta Sans y texto en Inter. */
 :root {
   --tinta: #1a212e;
   --tinta-suave: rgba(26, 33, 46, 0.68);
@@ -7,7 +7,8 @@
   --papel: #faf8f4;
   --niebla: #d6d5d1;
   --linea: rgba(26, 33, 46, 0.12);
-  --serif: 'Lora', Georgia, 'Times New Roman', serif;
+  --serif: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --titulo: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --ui: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --ancho: 1180px;
 }
@@ -20,10 +21,11 @@ body {
   background: var(--papel);
   color: var(--tinta);
   font-family: var(--serif);
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
+h1, h2, h3, h4, .marca, .boton, .pildora, .enlace { font-family: var(--titulo); }
 a { color: var(--tinta); text-decoration-color: var(--azul); text-underline-offset: 3px; }
 a:focus-visible, button:focus-visible { outline: 2px solid var(--azul); outline-offset: 4px; border-radius: 999px; }
 .contenedor { max-width: var(--ancho); margin: 0 auto; padding: 0 clamp(20px, 5vw, 40px); }
