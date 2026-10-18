@@ -45,8 +45,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--azul); outline-
   backdrop-filter: blur(18px) saturate(160%);
   -webkit-backdrop-filter: blur(18px) saturate(160%);
 }
-.marca { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--tinta); font-size: 1.18rem; font-weight: 600; }
-.marca img { width: 30px; height: 30px; border-radius: 8px; }
+.marca { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--tinta); font-size: 1.36rem; font-weight: 700; letter-spacing: -0.01em; }
+.marca img { width: 32px; height: 32px; border-radius: 8px; }
 .barra nav { display: flex; align-items: center; gap: 22px; }
 
 /* ---- Botones ---- */
@@ -325,9 +325,10 @@ html.menu-abierto, html.menu-abierto body { overflow: hidden; }
 .nav-flecha:hover, .nav-flecha:focus-visible { opacity: 1; }
 .nav-flecha[aria-expanded="true"] { transform: rotate(180deg); opacity: 1; }
 .nav-sub { position: absolute; top: 100%; left: -16px; z-index: 5; padding-top: 14px; min-width: 260px; opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity 0.22s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.22s; }
-.nav-sub-in { display: grid; gap: 2px; padding: 8px; border-radius: 18px; background: #fff; border: 1px solid var(--linea); box-shadow: 0 28px 56px -18px rgba(26, 33, 46, 0.35); }
-.nav-sub-in a { display: block; padding: 10px 14px; border-radius: 11px; font-size: 0.95rem; color: var(--tinta); text-decoration: none; transition: background 0.15s ease; }
-.nav-sub-in a:hover, .nav-sub-in a:focus-visible { background: #eaf2ff; outline: none; }
+.nav-sub-in { display: grid; gap: 0; padding: 4px 0; border-radius: 10px; background: #fff; border: 1px solid var(--linea); box-shadow: 0 28px 56px -18px rgba(26, 33, 46, 0.35); }
+.nav-sub-in a { display: block; padding: 9px 16px; border-radius: 0; font-size: 0.95rem; color: var(--tinta); text-decoration: none; transition: background 0.15s ease, color 0.15s ease; }
+.nav-sub-in a + a { border-top: 1px solid var(--linea); }
+.nav-sub-in a:hover, .nav-sub-in a:focus-visible { background: #eaf2ff; color: var(--azul); outline: none; }
 .nav-grupo:hover .nav-sub, .nav-grupo:focus-within .nav-sub, .nav-grupo.abierto .nav-sub { opacity: 1; visibility: visible; transform: none; }
 .nav-grupo.cerrado .nav-sub { opacity: 0; visibility: hidden; transform: translateY(8px); }
 .barra nav a.boton-nav {
@@ -348,6 +349,7 @@ html.menu-abierto, html.menu-abierto body { overflow: hidden; }
   .nav-grupo.cerrado .nav-sub { opacity: 1; visibility: visible; transform: none; }
   .nav-sub-in { padding: 0 0 6px; border: 0; box-shadow: none; background: transparent; border-radius: 0; }
   .nav-sub-in a { padding: 9px 14px 9px 26px; font-size: 0.98rem; color: var(--tinta-suave); }
+  .nav-sub-in a + a { border-top: 0; }
   .barra nav a.boton-nav { justify-content: center; height: 54px; margin-top: 8px; font-size: 1.05rem; }
 }
 .barra nav a.nav-link:focus-visible { border-radius: 8px; outline-offset: 3px; }
