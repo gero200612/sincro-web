@@ -9,112 +9,66 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="estilo.css?v=5">
+<link rel="stylesheet" href="estilo.css?v=6">
+<script>document.documentElement.classList.add("js")</script>
 <style>
-  /* ---- Hero ---- */
   body { background: #f4eee5; }
-  /* ---- Hero ---- */
-  .ag-hero { position: relative; overflow: hidden; color: var(--papel); background: var(--tinta); padding: 150px 0 88px; isolation: isolate; }
-  .ag-hero::before { content: ''; position: absolute; z-index: -1; inset: 0; background: radial-gradient(60% 70% at 78% 45%, rgba(1, 102, 254, 0.45), rgba(1, 102, 254, 0) 70%), radial-gradient(40% 50% at 10% 100%, rgba(185, 211, 255, 0.12), rgba(185, 211, 255, 0) 70%); }
-  .ag-hero-grilla { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; }
-  .ag-hero h1 { margin: 0 0 18px; font-size: clamp(2.3rem, 3.4vw + 0.8rem, 3.6rem); font-weight: 600; letter-spacing: -0.015em; line-height: 1.08; }
+  .barra-adentro { background: rgba(250, 248, 244, 0.94); }
+  /* ---- Hero: el fondo es el color de las esquinas de la ilustracion ---- */
+  .ag-hero { position: relative; overflow: hidden; color: var(--papel); background: #141d30; padding: 150px 0 72px; }
+  .ag-hero-grilla { display: grid; grid-template-columns: 1fr 1.15fr; gap: 24px; align-items: center; }
+  .ag-hero-grilla > div:first-child { position: relative; z-index: 1; }
+  .ag-hero h1 { margin: 0 0 18px; font-size: clamp(2.3rem, 3.4vw + 0.8rem, 3.6rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.06; }
   .ag-hero p { margin: 0 0 32px; max-width: 30em; font-size: 1.15rem; color: rgba(250, 248, 244, 0.78); }
   .ag-hero-acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; }
   .ag-hero .boton { background: var(--azul); color: #fff; }
   .ag-hero .boton::before { background: #fff; }
   .ag-hero .boton::after { background: #0150c8; }
   .ag-hero .enlace { color: var(--papel); }
-  .escena { position: relative; height: 480px; }
-  .escena > * { position: absolute; }
-  .movil { left: 50%; top: 0; width: 232px; height: 466px; transform: translateX(-50%); border-radius: 38px; padding: 10px; background: #0d121c; border: 1px solid rgba(255, 255, 255, 0.16); box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.6); }
-  .movil-pantalla { position: relative; height: 100%; border-radius: 29px; overflow: hidden; background: linear-gradient(165deg, #3b82ff 0%, #0b3a9c 55%, #121a2b 100%); }
-  .movil-pantalla::before { content: ''; position: absolute; left: 50%; top: 8px; width: 70px; height: 18px; border-radius: 99px; background: #0d121c; transform: translateX(-50%); }
-  .movil-marca { position: absolute; left: 14px; top: 42px; display: flex; align-items: center; gap: 8px; font-family: var(--ui); font-size: 0.74rem; font-weight: 600; }
-  .movil-marca i { width: 24px; height: 24px; border-radius: 50%; background: var(--papel); }
-  .movil-casa { position: absolute; left: 22px; top: 150px; width: 100px; height: 100px; }
-  .movil-sub { position: absolute; left: 14px; right: 14px; top: 262px; padding: 8px 10px; border-radius: 10px; background: rgba(13, 18, 28, 0.62); font-family: var(--ui); font-size: 0.8rem; font-weight: 600; line-height: 1.3; text-align: center; }
-  .movil-icos { position: absolute; right: 12px; top: 200px; display: grid; gap: 14px; }
-  .movil-icos i { width: 26px; height: 26px; border-radius: 50%; background: rgba(255, 255, 255, 0.22); }
-  .tarjeta { background: #fff; color: var(--tinta); border-radius: 18px; padding: 14px 16px; box-shadow: 0 24px 50px -16px rgba(0, 0, 0, 0.55); font-family: var(--ui); }
-  .tarjeta small { display: block; color: var(--tinta-suave); font-size: 0.74rem; }
-  .tarjeta b { display: block; font-size: 0.88rem; font-weight: 600; line-height: 1.25; }
-  .notif { right: -24px; top: 96px; display: flex; gap: 10px; align-items: center; width: 232px; }
-  .notif .punto { flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--azul); display: grid; place-items: center; }
-  .notif svg { width: 18px; height: 18px; }
-  .grafico { left: 0; bottom: 36px; width: 196px; }
-  .grafico svg { display: block; width: 100%; height: 56px; margin-top: 8px; }
-  .calendario { right: 8px; bottom: 0; width: 208px; }
-  .calendario .tres { display: flex; gap: 6px; margin-top: 8px; }
-  .calendario .tres i { flex: 1; height: 48px; border-radius: 8px; background: linear-gradient(160deg, var(--azul-claro), #6ea3ff); }
-  .calendario .tres i:nth-child(2) { background: linear-gradient(160deg, #6ea3ff, var(--azul)); outline: 2px solid var(--tinta); outline-offset: 1px; }
-  .calendario .tres i:nth-child(3) { background: linear-gradient(160deg, #d6d5d1, #9aa3b5); }
-
-  .barra-adentro { background: rgba(250, 248, 244, 0.94); }
-  /* ---- Barra de salto ---- */
-  .ag-salto { position: sticky; top: 0; z-index: 5; }
+  .ag-hero-img { margin: 0; }
+  .ag-hero-img img { display: block; width: 138%; max-width: none; height: auto; margin-left: -30%; -webkit-mask-image: radial-gradient(ellipse 64% 68% at 56% 50%, #000 44%, transparent 100%); mask-image: radial-gradient(ellipse 64% 68% at 56% 50%, #000 44%, transparent 100%); }
   .ag-indice { display: flex; gap: 12px; flex-wrap: wrap; padding: 28px 0 0; }
-  .ag-indice a { font-family: var(--ui); font-size: 0.9rem; font-weight: 500; text-decoration: none; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--linea); background: #fff; }
-  .ag-indice a:hover { border-color: var(--azul); }
+  .ag-indice a { font-family: var(--ui); font-size: 0.9rem; font-weight: 500; text-decoration: none; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--linea); background: #fff; transition: border-color 0.2s ease, transform 0.2s ease; }
+  .ag-indice a:hover { border-color: var(--azul); transform: translateY(-1px); }
 
   /* ---- Cada agente ---- */
-  .ag-sec { border-top: 1px solid var(--linea); padding: 80px 0; scroll-margin-top: 40px; }
+  .ag-sec { border-top: 1px solid var(--linea); padding: 88px 0; scroll-margin-top: 40px; }
+  .ag-sec:first-of-type { margin-top: 28px; }
   .ag-fila { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
   .ag-sec.invertido .ag-fila > .vista { order: -1; }
-  .estado { display: inline-block; font-family: var(--ui); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em; padding: 4px 12px; border-radius: 999px; margin-bottom: 14px; }
-  .estado.disponible { background: var(--azul-claro); color: var(--tinta); }
-  .estado.proximamente { background: var(--niebla); color: var(--tinta); }
-  .ag-sec h2 { margin: 0 0 10px; font-size: clamp(1.9rem, 2.2vw + 0.8rem, 2.6rem); font-weight: 600; letter-spacing: -0.01em; line-height: 1.12; }
-  .promesa { margin: 0 0 28px; font-size: 1.2rem; color: var(--tinta-suave); }
-  .ag-sec h3 { margin: 28px 0 12px; font-family: var(--ui); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--azul); }
-  .ag-pasos { list-style: none; counter-reset: p; margin: 0; padding: 0; display: grid; gap: 12px; }
-  .ag-pasos li { counter-increment: p; position: relative; padding-left: 44px; }
-  .ag-pasos li::before { content: counter(p); position: absolute; left: 0; top: 2px; width: 28px; height: 28px; border-radius: 50%; background: var(--tinta); color: var(--papel); font-family: var(--ui); font-size: 0.85rem; font-weight: 600; display: grid; place-items: center; }
-  .ag-abajo { margin-top: 40px; }
-  .ag-abajo h3 { margin-top: 0; }
-  .ag-cierre { display: flex; justify-content: space-between; align-items: center; gap: 24px 40px; flex-wrap: wrap; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--linea); }
-  .ag-cierre .necesitas { max-width: 38em; }
-  .ag-ejemplos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .ejemplo { padding: 20px 22px; border-radius: 16px; background: #fff; border: 1px solid var(--linea); font-size: 0.95rem; line-height: 1.5; }
-  .ejemplo b { display: block; margin-bottom: 4px; font-family: var(--ui); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tinta-suave); }
-  .necesitas { margin: 0; color: var(--tinta-suave); }
-  .ag-cta { margin-top: 32px; }
-
-  /* ---- La ilustracion de cada agente ---- */
+  .cabeza.compacta { margin-bottom: 30px; }
+  .mini { margin: 0 0 14px; font-family: var(--titulo); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--azul); }
+  .ag-pasos { list-style: none; counter-reset: p; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .ag-pasos li { counter-increment: p; position: relative; padding-left: 46px; }
+  .ag-pasos li::before { content: counter(p); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--tinta); color: var(--papel); font-family: var(--titulo); font-size: 0.85rem; font-weight: 600; display: grid; place-items: center; }
+  .ag-abajo { margin-top: 48px; }
+  .ag-ejemplos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .ejemplo { padding: 22px 24px; border-radius: 18px; background: #fff; border: 1px solid var(--linea); font-size: 0.96rem; line-height: 1.55; }
+  .ejemplo b { display: block; margin-bottom: 6px; font-family: var(--titulo); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--azul); }
+  .ag-cierre { display: flex; justify-content: space-between; align-items: center; gap: 24px 40px; flex-wrap: wrap; margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--linea); }
+  .ag-cierre .mini { margin-bottom: 6px; }
+  .necesitas { margin: 0; max-width: 38em; color: var(--tinta-suave); }
   .vista { margin: 0; }
   .vista img { display: block; width: 100%; height: auto; -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 40%, transparent 100%); mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 40%, transparent 100%); }
 
-  /* ---- En todos los agentes ---- */
-  .ag-comun { padding: 96px 0 24px; }
-  .ag-comun h2, .ag-faq h2 { margin: 0 0 32px; font-size: clamp(1.9rem, 2.2vw + 0.8rem, 2.6rem); font-weight: 600; letter-spacing: -0.01em; line-height: 1.12; }
+  /* ---- En todos los agentes + preguntas ---- */
+  .ag-comun { padding: 88px 0 24px; border-top: 1px solid var(--linea); }
   .baldosas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .baldosa { padding: 28px; border-radius: 24px; background: var(--tinta); color: var(--papel); }
-  .baldosa svg { width: 44px; height: 44px; padding: 10px; border-radius: 14px; background: var(--azul); color: #fff; margin-bottom: 18px; }
+  .baldosa { padding: 30px; border-radius: 24px; background: var(--tinta); color: var(--papel); }
+  .baldosa svg { width: 46px; height: 46px; padding: 11px; border-radius: 14px; background: var(--azul); color: #fff; margin-bottom: 20px; }
   .baldosa h3 { margin: 0 0 8px; font-size: 1.2rem; font-weight: 600; }
   .baldosa p { margin: 0; color: rgba(250, 248, 244, 0.78); font-size: 0.98rem; line-height: 1.55; }
-  .ag-faq { padding: 64px 0 104px; }
-  .ag-faq details { border-bottom: 1px solid var(--linea); max-width: 780px; }
-  .ag-faq summary { cursor: pointer; padding: 18px 0; font-size: 1.12rem; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
-  .ag-faq summary::-webkit-details-marker { display: none; }
-  .ag-faq summary::after { content: '+'; color: var(--azul); font-size: 1.4rem; line-height: 1; }
-  .ag-faq details[open] summary::after { content: '\2212'; }
-  .ag-faq details p { margin: 0 0 20px; color: var(--tinta-suave); max-width: 38em; }
+  .ag-faq { padding: 72px 0 104px; }
 
   @media (max-width: 900px) {
-    .ag-hero { padding: 128px 0 64px; }
-    .ag-hero-grilla, .ag-fila { grid-template-columns: 1fr; gap: 40px; }
+    .ag-hero { padding: 132px 0 48px; }
+    .ag-hero-grilla, .ag-fila { grid-template-columns: 1fr; gap: 32px; }
+    .ag-hero-img img { width: 112%; margin-left: -6%; }
     .ag-sec.invertido .ag-fila > .vista { order: 0; }
     .ag-sec { padding: 64px 0; }
     .ag-ejemplos, .baldosas { grid-template-columns: 1fr; }
     .ag-comun { padding-top: 64px; }
-  }
-  @media (max-width: 480px) {
-    .escena { height: 440px; overflow: hidden; }
-    .movil { width: 200px; height: 400px; }
-    .movil-sub { display: none; }
-    .notif { width: 176px; right: 0; top: 100px; }
-    .grafico { width: 164px; bottom: 28px; }
-    .calendario { width: 172px; right: 0; }
-    .vista { padding: 24px 16px; border-radius: 24px; }
+    .ag-abajo { margin-top: 32px; }
   }
 </style>
 </head>
@@ -122,13 +76,14 @@
 <header class="barra">
   <div class="barra-adentro">
     <a class="marca" href="index.html"><img src="logo.png" alt="">Sincro</a>
-    <nav aria-label="Principal">
+    <nav id="menu-principal" aria-label="Principal">
       <a href="index.html#resolvemos">Qué resolvemos</a>
       <a href="index.html#trabajos">Trabajos</a>
-      <a class="movil-si" href="agentes.html" aria-current="page">Agentes</a>
+      <a href="agentes.html" aria-current="page">Agentes</a>
       <a href="index.html#como">Cómo trabajamos</a>
       <a class="pildora" href="index.html#contacto">Contacto</a>
     </nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menú"><span></span><span></span><span></span></button>
   </div>
 </header>
 
@@ -143,28 +98,7 @@
           <a class="enlace" href="#asistente-de-marketing">Ver los agentes</a>
         </div>
       </div>
-      <div class="escena" aria-hidden="true">
-        <div class="movil">
-          <div class="movil-pantalla">
-            <div class="movil-marca"><i></i>Inmobiliaria Ejemplo</div>
-            <svg class="movil-casa" viewBox="0 0 120 120" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="3" stroke-linejoin="round"><path d="M10 58 60 14l50 44"/><path d="M22 52v54h76V52"/><rect x="50" y="72" width="20" height="34"/><rect x="28" y="62" width="14" height="14"/><rect x="78" y="62" width="14" height="14"/></svg>
-            <div class="movil-icos"><i></i><i></i><i></i></div>
-            <div class="movil-sub">Departamento luminoso, 2 ambientes</div>
-          </div>
-        </div>
-        <div class="tarjeta notif">
-          <span class="punto"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 1 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></span>
-          <span><b>Nuevo lead interesado</b><small>Consulta por un alquiler</small></span>
-        </div>
-        <div class="tarjeta grafico">
-          <b>Consultas de la semana</b><small>Datos de ejemplo</small>
-          <svg viewBox="0 0 160 56" fill="none"><path d="M2 46 28 38 52 42 80 26 108 30 134 12 158 6" stroke="#0166fe" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 46 28 38 52 42 80 26 108 30 134 12 158 6V56H2z" fill="rgba(1,102,254,.12)"/></svg>
-        </div>
-        <div class="tarjeta calendario">
-          <b>Plan del mes</b><small>3 variantes para elegir</small>
-          <div class="tres"><i></i><i></i><i></i></div>
-        </div>
-      </div>
+      <div class="ag-hero-img"><picture class="flota"><source type="image/webp" srcset="img/agentes-hero-720.webp 720w, img/agentes-hero.webp 1400w" sizes="(max-width: 900px) 100vw, 720px"><img src="img/agentes-hero.webp" width="1400" height="1045" loading="eager" fetchpriority="high" alt="Ilustración isométrica de una notebook con gráficos, tres celulares con reels y un celular con una conversación, conectados a un centro luminoso: los agentes de Sincro trabajan juntos dentro de tu sistema."></picture></div>
     </div>
   </section>
 
@@ -177,36 +111,39 @@
   </div>
 
   <!-- AGENTES: para sumar uno nuevo, copiá un bloque <section class="ag-sec"> entero (agregale la clase
-       "invertido" si lo querés con la imagen a la izquierda) y cambiá el id, el estado (disponible /
-       proximamente), el nombre, la promesa, los pasos, los ejemplos, lo que se necesita, el mockup
-       de la columna .vista y el texto del link de WhatsApp. Sumalo también al índice de arriba. -->
+       "invertido" si lo querés con la ilustración a la izquierda) y cambiá el id, la etiqueta, el estado
+       (disponible / proximamente), el nombre, la promesa, los pasos, los ejemplos, lo que se necesita, la
+       ilustración de la columna .vista (img/agente-XXX.webp y -640.webp) y el texto del link de WhatsApp.
+       Sumalo también al índice de arriba (.ag-indice). -->
 
-  <section class="ag-sec" id="asistente-de-marketing" aria-labelledby="t-marketing">
+  <section class="ag-sec" id="asistente-de-marketing" aria-labelledby="t-asistente-de-marketing">
     <div class="contenedor ag-fila">
       <div>
-        <span class="estado disponible">Disponible</span>
-        <h2 id="t-marketing">Asistente de marketing</h2>
-        <p class="promesa">Mira tus anuncios y tus leads todos los días y te dice qué cambiar.</p>
-        <h3>Cómo funciona</h3>
+        <div class="cabeza compacta" data-aparece>
+          <p class="etiqueta-sec">Marketing <span class="estado disponible">Disponible</span></p>
+          <h2 id="t-asistente-de-marketing">Asistente de marketing</h2>
+          <p class="sub">Mira tus anuncios y tus leads todos los días y te dice qué cambiar.</p>
+        </div>
+        <h3 class="mini">Cómo funciona</h3>
         <ol class="ag-pasos">
-          <li>Se conecta a tus cuentas de anuncios y a tus leads.</li>
-          <li>Analiza qué campañas traen consultas y cuáles gastan sin resultado.</li>
-          <li>Propone campañas y ajustes, con el motivo de cada uno.</li>
-          <li>Según el modo que elijas, los aplica solo, te pide permiso o solo te aconseja. Aprende de lo que aprobás y rechazás.</li>
+            <li data-aparece>Se conecta a tus cuentas de anuncios y a tus leads.</li>
+            <li data-aparece>Analiza qué campañas traen consultas y cuáles gastan sin resultado.</li>
+            <li data-aparece>Propone campañas y ajustes, con el motivo de cada uno.</li>
+            <li data-aparece>Según el modo que elijas, los aplica solo, te pide permiso o solo te aconseja. Aprende de lo que aprobás y rechazás.</li>
         </ol>
       </div>
-      <div class="vista"><picture><source type="image/webp" srcset="img/agente-marketing-640.webp 640w, img/agente-marketing.webp 1200w" sizes="(max-width: 900px) 100vw, 560px"><img src="img/agente-marketing.webp" width="1200" height="896" loading="lazy" decoding="async" alt="Ilustración isométrica de un tablero con gráficos de barras, una lupa y botones de aprobar y rechazar: el asistente de marketing analiza tus campañas y te propone ajustes."></picture></div>
+      <div class="vista" data-aparece="zoom"><picture data-parallax class="flota"><source type="image/webp" srcset="img/agente-marketing-640.webp 640w, img/agente-marketing.webp 1200w" sizes="(max-width: 900px) 100vw, 560px"><img src="img/agente-marketing.webp" width="1200" height="896" loading="lazy" decoding="async" alt="Ilustración isométrica de una notebook con gráficos de barras y una flecha que sube, con botones de aprobar y rechazar: el asistente de marketing analiza tus campañas y te propone ajustes."></picture></div>
     </div>
     <div class="contenedor ag-abajo">
-      <h3>Ejemplos de uso</h3>
-        <div class="ag-ejemplos">
-          <div class="ejemplo"><b>Inmobiliaria</b>Ve que los avisos de alquiler traen más consultas que los de venta y te propone mover presupuesto.</div>
-          <div class="ejemplo"><b>Gastronomía</b>Propone una campaña de menú ejecutivo para los mediodías flojos y la pausa si no rinde.</div>
-          <div class="ejemplo"><b>Taller o servicios</b>Detecta una campaña que gasta y no trae leads y te pide permiso para pausarla.</div>
-        </div>
-      <div class="ag-cierre">
+      <h3 class="mini" data-aparece>Ejemplos de uso</h3>
+      <div class="ag-ejemplos">
+          <div class="ejemplo" data-aparece><b>Inmobiliaria</b>Ve que los avisos de alquiler traen más consultas que los de venta y te propone mover presupuesto.</div>
+          <div class="ejemplo" data-aparece><b>Gastronomía</b>Propone una campaña de menú ejecutivo para los mediodías flojos y la pausa si no rinde.</div>
+          <div class="ejemplo" data-aparece><b>Taller o servicios</b>Detecta una campaña que gasta y no trae leads y te pide permiso para pausarla.</div>
+      </div>
+      <div class="ag-cierre" data-aparece>
         <div>
-          <h3>Qué necesitás</h3>
+          <h3 class="mini">Qué necesitás</h3>
           <p class="necesitas">Tus cuentas de anuncios conectadas y decidir en qué modo querés arrancar.</p>
         </div>
         <a class="boton" href="https://wa.me/5491141879467?text=Hola%20Sincro%2C%20quiero%20consultar%20por%20el%20Asistente%20de%20marketing" target="_blank" rel="noopener">Consultar por WhatsApp</a>
@@ -214,32 +151,34 @@
     </div>
   </section>
 
-  <section class="ag-sec invertido" id="asistente-de-contenido" aria-labelledby="t-contenido">
+  <section class="ag-sec invertido" id="asistente-de-contenido" aria-labelledby="t-asistente-de-contenido">
     <div class="contenedor ag-fila">
       <div>
-        <span class="estado disponible">Disponible</span>
-        <h2 id="t-contenido">Asistente de contenido</h2>
-        <p class="promesa">Un mes de contenido con tu marca, listo para que elijas.</p>
-        <h3>Cómo funciona</h3>
+        <div class="cabeza compacta" data-aparece>
+          <p class="etiqueta-sec">Contenido <span class="estado disponible">Disponible</span></p>
+          <h2 id="t-asistente-de-contenido">Asistente de contenido</h2>
+          <p class="sub">Un mes de contenido con tu marca, listo para que elijas.</p>
+        </div>
+        <h3 class="mini">Cómo funciona</h3>
         <ol class="ag-pasos">
-          <li>Mira los reels que ya publicaste para aprender tu estilo.</li>
-          <li>Arma el plan del mes y los reels, posteos y carruseles con tu material (fotos, videos, sonidos) o de bancos libres, con voz en off y subtítulos.</li>
-          <li>Te da 3 variantes por pieza. Un revisor visual descarta lo que no está a la altura.</li>
-          <li>Elegís, editás o pedís cambios. Cada pieza sale primero como anuncio de prueba y las que rinden pasan al feed.</li>
+            <li data-aparece>Mira los reels que ya publicaste para aprender tu estilo.</li>
+            <li data-aparece>Arma el plan del mes y los reels, posteos y carruseles con tu material (fotos, videos, sonidos) o de bancos libres, con voz en off y subtítulos.</li>
+            <li data-aparece>Te da 3 variantes por pieza. Un revisor visual descarta lo que no está a la altura.</li>
+            <li data-aparece>Elegís, editás o pedís cambios. Cada pieza sale primero como anuncio de prueba y las que rinden pasan al feed.</li>
         </ol>
       </div>
-      <div class="vista"><picture><source type="image/webp" srcset="img/agente-contenido-640.webp 640w, img/agente-contenido.webp 1200w" sizes="(max-width: 900px) 100vw, 560px"><img src="img/agente-contenido.webp" width="1200" height="896" loading="lazy" decoding="async" alt="Ilustración isométrica de tres celulares con reels, una claqueta, una nota musical, un micrófono y un calendario: el asistente de contenido arma tus piezas y te da variantes para elegir."></picture></div>
+      <div class="vista" data-aparece="zoom"><picture data-parallax class="flota"><source type="image/webp" srcset="img/agente-contenido-640.webp 640w, img/agente-contenido.webp 1200w" sizes="(max-width: 900px) 100vw, 560px"><img src="img/agente-contenido.webp" width="1200" height="896" loading="lazy" decoding="async" alt="Ilustración isométrica de tres celulares con reels, una claqueta, una nota musical, un micrófono y un calendario: el asistente de contenido arma tus piezas y te da variantes para elegir."></picture></div>
     </div>
     <div class="contenedor ag-abajo">
-      <h3>Ejemplos de uso</h3>
-        <div class="ag-ejemplos">
-          <div class="ejemplo"><b>Inmobiliaria</b>Recorridos cortos de propiedades armados con las fotos y videos que ya tenés.</div>
-          <div class="ejemplo"><b>Gastronomía</b>Reels del plato del día y carruseles con el menú de la semana.</div>
-          <div class="ejemplo"><b>Taller o servicios</b>Antes y después de un trabajo, con consejos de mantenimiento.</div>
-        </div>
-      <div class="ag-cierre">
+      <h3 class="mini" data-aparece>Ejemplos de uso</h3>
+      <div class="ag-ejemplos">
+          <div class="ejemplo" data-aparece><b>Inmobiliaria</b>Recorridos cortos de propiedades armados con las fotos y videos que ya tenés.</div>
+          <div class="ejemplo" data-aparece><b>Gastronomía</b>Reels del plato del día y carruseles con el menú de la semana.</div>
+          <div class="ejemplo" data-aparece><b>Taller o servicios</b>Antes y después de un trabajo, con consejos de mantenimiento.</div>
+      </div>
+      <div class="ag-cierre" data-aparece>
         <div>
-          <h3>Qué necesitás</h3>
+          <h3 class="mini">Qué necesitás</h3>
           <p class="necesitas">Tu logo y tus colores, algo de material propio y tus redes conectadas.</p>
         </div>
         <a class="boton" href="https://wa.me/5491141879467?text=Hola%20Sincro%2C%20quiero%20consultar%20por%20el%20Asistente%20de%20contenido" target="_blank" rel="noopener">Consultar por WhatsApp</a>
@@ -247,32 +186,34 @@
     </div>
   </section>
 
-  <section class="ag-sec" id="asistente-puente" aria-labelledby="t-puente">
+  <section class="ag-sec" id="asistente-puente" aria-labelledby="t-asistente-puente">
     <div class="contenedor ag-fila">
       <div>
-        <span class="estado proximamente">Próximamente</span>
-        <h2 id="t-puente">Asistente Puente</h2>
-        <p class="promesa">Responde al momento y te avisa cuando hay una venta cerca.</p>
-        <h3>Cómo funciona</h3>
+        <div class="cabeza compacta" data-aparece>
+          <p class="etiqueta-sec">Mensajes <span class="estado proximamente">Próximamente</span></p>
+          <h2 id="t-asistente-puente">Asistente Puente</h2>
+          <p class="sub">Responde al momento y te avisa cuando hay una venta cerca.</p>
+        </div>
+        <h3 class="mini">Cómo funciona</h3>
         <ol class="ag-pasos">
-          <li>Se conecta a tu WhatsApp, Instagram y Facebook.</li>
-          <li>Responde mensajes y comentarios al momento, con lo que sabe de tu negocio.</li>
-          <li>Cuando alguien está interesado, avisa al equipo.</li>
-          <li>Hace seguimientos. Lo que no sabe o no puede prometer, lo deriva a una persona.</li>
+            <li data-aparece>Se conecta a tu WhatsApp, Instagram y Facebook.</li>
+            <li data-aparece>Responde mensajes y comentarios al momento, con lo que sabe de tu negocio.</li>
+            <li data-aparece>Cuando alguien está interesado, avisa al equipo.</li>
+            <li data-aparece>Hace seguimientos. Lo que no sabe o no puede prometer, lo deriva a una persona.</li>
         </ol>
       </div>
-      <div class="vista"><picture><source type="image/webp" srcset="img/agente-puente-640.webp 640w, img/agente-puente.webp 1200w" sizes="(max-width: 900px) 100vw, 560px"><img src="img/agente-puente.webp" width="1200" height="896" loading="lazy" decoding="async" alt="Ilustración isométrica de un celular con una conversación, rodeado de íconos de mensajes, cámara y me gusta, y un aviso con campana que llega al equipo: el asistente Puente atiende tus mensajes."></picture></div>
+      <div class="vista" data-aparece="zoom"><picture data-parallax class="flota"><source type="image/webp" srcset="img/agente-puente-640.webp 640w, img/agente-puente.webp 1200w" sizes="(max-width: 900px) 100vw, 560px"><img src="img/agente-puente.webp" width="1200" height="896" loading="lazy" decoding="async" alt="Ilustración isométrica de un celular con una conversación, rodeado de íconos de mensajes, cámara y me gusta, y un aviso con campana que llega al equipo: el asistente Puente atiende tus mensajes."></picture></div>
     </div>
     <div class="contenedor ag-abajo">
-      <h3>Ejemplos de uso</h3>
-        <div class="ag-ejemplos">
-          <div class="ejemplo"><b>Inmobiliaria</b>Contesta qué propiedades hay y avisa al asesor cuando alguien quiere visitar una.</div>
-          <div class="ejemplo"><b>Gastronomía</b>Responde horarios y carta, y avisa al local cuando piden una reserva.</div>
-          <div class="ejemplo"><b>Taller o servicios</b>Recibe la consulta, junta los datos y le pasa todo al equipo con seguimiento.</div>
-        </div>
-      <div class="ag-cierre">
+      <h3 class="mini" data-aparece>Ejemplos de uso</h3>
+      <div class="ag-ejemplos">
+          <div class="ejemplo" data-aparece><b>Inmobiliaria</b>Contesta qué propiedades hay y avisa al asesor cuando alguien quiere visitar una.</div>
+          <div class="ejemplo" data-aparece><b>Gastronomía</b>Responde horarios y carta, y avisa al local cuando piden una reserva.</div>
+          <div class="ejemplo" data-aparece><b>Taller o servicios</b>Recibe la consulta, junta los datos y le pasa todo al equipo con seguimiento.</div>
+      </div>
+      <div class="ag-cierre" data-aparece>
         <div>
-          <h3>Qué necesitás</h3>
+          <h3 class="mini">Qué necesitás</h3>
           <p class="necesitas">Tus cuentas de mensajería conectadas y los datos básicos de tu negocio: horarios, servicios y preguntas frecuentes.</p>
         </div>
         <a class="boton" href="https://wa.me/5491141879467?text=Hola%20Sincro%2C%20quiero%20enterarme%20cuando%20salga%20el%20Asistente%20Puente" target="_blank" rel="noopener">Avisame cuando salga</a>
@@ -282,19 +223,23 @@
 
   <section class="ag-comun" aria-labelledby="t-comun">
     <div class="contenedor">
-      <h2 id="t-comun">En todos los agentes</h2>
+      <div class="cabeza" data-aparece>
+        <p class="etiqueta-sec">Siempre</p>
+        <h2 id="t-comun">En todos los agentes</h2>
+        <p class="sub">Tres reglas que valen para cualquier agente de Sincro.</p>
+      </div>
       <div class="baldosas">
-        <div class="baldosa">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>
+        <div class="baldosa" data-aparece>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>
           <h3>Vos elegís el modo</h3>
           <p>Automático, pedir permiso o solo consejos, con un tope por cada acción.</p>
         </div>
-        <div class="baldosa">
+        <div class="baldosa" data-aparece>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
           <h3>Tus datos se quedan</h3>
           <p>Los datos personales nunca salen de tu sistema.</p>
         </div>
-        <div class="baldosa">
+        <div class="baldosa" data-aparece>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
           <h3>Ves todo</h3>
           <p>Cada acción queda registrada: qué hizo el agente y por qué.</p>
@@ -305,12 +250,18 @@
 
   <section class="ag-faq" aria-labelledby="t-faq">
     <div class="contenedor">
-      <h2 id="t-faq">Preguntas sobre los agentes</h2>
-      <details><summary>¿Reemplaza a mi equipo?</summary><p>No. Se ocupa de lo repetitivo y deja las decisiones y el trato con tus clientes en manos de tu gente.</p></details>
-      <details><summary>¿Qué pasa con mis datos?</summary><p>Los datos personales de tus clientes nunca salen de tu sistema: los agentes trabajan adentro de él.</p></details>
-      <details><summary>¿Puedo frenarlo?</summary><p>Sí. Podés cambiar el modo cuando quieras, por ejemplo pasarlo a solo consejos, y el tope por acción limita cuánto puede hacer por su cuenta.</p></details>
-      <details><summary>¿Cuánto tarda en estar andando?</summary><p>Depende de tus cuentas y de tu material. Lo definimos en la primera charla, sin compromiso.</p></details>
-      <details><summary>¿Funciona con mi sistema?</summary><p>Los agentes viven dentro de tu sistema de Sincro. Si ya usás otras herramientas, o todavía no tenés un sistema, lo vemos juntos en la primera charla.</p></details>
+      <div class="cabeza" data-aparece>
+        <p class="etiqueta-sec">Preguntas</p>
+        <h2 id="t-faq">Preguntas sobre los agentes</h2>
+        <p class="sub">Lo que más nos consultan antes de arrancar.</p>
+      </div>
+      <div class="faq">
+        <details data-aparece><summary>¿Reemplaza a mi equipo?</summary><div class="respuesta"><p>No. Se ocupa de lo repetitivo y deja las decisiones y el trato con tus clientes en manos de tu gente.</p></div></details>
+        <details data-aparece><summary>¿Qué pasa con mis datos?</summary><div class="respuesta"><p>Los datos personales de tus clientes nunca salen de tu sistema: los agentes trabajan adentro de él.</p></div></details>
+        <details data-aparece><summary>¿Puedo frenarlo?</summary><div class="respuesta"><p>Sí. Podés cambiar el modo cuando quieras, por ejemplo pasarlo a solo consejos, y el tope por acción limita cuánto puede hacer por su cuenta.</p></div></details>
+        <details data-aparece><summary>¿Cuánto tarda en estar andando?</summary><div class="respuesta"><p>Depende de tus cuentas y de tu material. Lo definimos en la primera charla, sin compromiso.</p></div></details>
+        <details data-aparece><summary>¿Funciona con mi sistema?</summary><div class="respuesta"><p>Los agentes viven dentro de tu sistema de Sincro. Si ya usás otras herramientas, o todavía no tenés un sistema, lo vemos juntos en la primera charla.</p></div></details>
+      </div>
     </div>
   </section>
 </main>
@@ -363,5 +314,6 @@
   </div>
 </footer>
 
+<script src="sitio.js?v=1" defer></script>
 </body>
 </html>

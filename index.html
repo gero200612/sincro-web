@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="estilo.css?v=5">
+<link rel="stylesheet" href="estilo.css?v=6">
 <script>document.documentElement.classList.add("js")</script>
 <style>
   /* ---- Hero: la foto a todo el ancho y el texto encima ---- */
@@ -42,8 +42,6 @@
 
   /* ---- Secciones ---- */
   .bloque { padding: 112px 0; }
-  .bloque h2 { margin: 0 0 14px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.15; font-size: clamp(2rem, 2.6vw + 0.6rem, 2.75rem); }
-  .intro { margin: 0 0 52px; font-size: 1.15rem; color: var(--tinta-suave); max-width: 34em; }
 
   /* Que resolvemos: seis fotos; la que esta debajo del mouse se agranda y cuenta mas */
   .resolvemos { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
@@ -94,7 +92,8 @@
   .caso { background: var(--tinta); color: var(--papel); overflow: hidden; }
   .caso h2 { color: var(--papel); }
   .caso .intro { color: rgba(250, 248, 244, 0.72); }
-  .caso-cabeza { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
+  .caso-cabeza .cabeza { margin: 0; }
+  .caso-cabeza { margin-bottom: 52px; display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
   .flechas { display: flex; gap: 10px; margin-bottom: 52px; }
   .flechas button {
     width: 52px; height: 52px; border-radius: 50%; border: 1px solid rgba(250, 248, 244, 0.3); background: transparent; color: var(--papel);
@@ -218,26 +217,14 @@
   .red small { display: block; color: var(--tinta-suave); font-size: 0.88rem; font-family: var(--ui); }
   .red b { font-size: 1.08rem; font-weight: 600; overflow-wrap: anywhere; }
 
-  .faq { margin: 112px auto 0; max-width: 860px; }
-  .faq h2 { margin: 0 0 32px; text-align: center; }
-  .faq details { border-top: 1px solid var(--linea); }
-  .faq details:last-child { border-bottom: 1px solid var(--linea); }
-  .faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 0; font-size: 1.18rem; font-weight: 600; }
-  .faq summary::-webkit-details-marker { display: none; }
-  .faq summary::after { content: '+'; flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: #eaf2ff; color: var(--azul); font-size: 1.3rem; font-weight: 500; transition: transform 0.25s ease; }
-  .faq details[open] summary::after { transform: rotate(45deg); }
-  .faq summary:focus-visible { outline: 2px solid var(--azul); outline-offset: 2px; border-radius: 8px; }
-  .faq details p { margin: 0; padding-bottom: 24px; color: var(--tinta-suave); max-width: 40em; }
-  .faq .respuesta { overflow: hidden; }
+  .faq { margin: 104px 0 0; }
 
   /* ---- Al scrollear: cada seccion entra a su manera ---- */
   @media (prefers-reduced-motion: no-preference) {
-    .js [data-aparece] { opacity: 0; transform: translateY(36px); transition: opacity 0.9s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: calc(var(--orden, 0) * 120ms); }
-    .js [data-aparece="izq"] { transform: translateX(-48px); }
+      .js [data-aparece="izq"] { transform: translateX(-48px); }
     .js [data-aparece="der"] { transform: translateX(80px); }
     .js [data-aparece="zoom"] { transform: scale(0.94); }
-    .js [data-aparece].visto { opacity: 1; transform: none; }
-    /* las tarjetas de Que resolvemos: apenas vistas, el hover vuelve a ser inmediato */
+      /* las tarjetas de Que resolvemos: apenas vistas, el hover vuelve a ser inmediato */
     .js .resolvemos li[data-aparece] { transition: box-shadow 0.6s ease, opacity 0.9s ease calc(var(--orden, 0) * 120ms), transform 1s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--orden, 0) * 120ms); }
     /* la linea punteada de los pasos se dibuja de izquierda a derecha y los numeros saltan */
     .js .pasos::before { transform: scaleX(0); transform-origin: left; transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s; }
@@ -264,8 +251,7 @@
     .pasos, .contacto-grilla { grid-template-columns: 1fr; }
     .pasos::before { display: none; }
     .contacto-grilla { gap: 32px; }
-    .faq { margin-top: 80px; }
-    .faq h2 { text-align: left; }
+    .faq { margin-top: 72px; }
     .form { grid-template-columns: 1fr; padding: 26px; }
     .bloque { padding: 80px 0; }
   }
@@ -276,14 +262,15 @@
 <header class="barra">
   <div class="barra-adentro">
     <a class="marca" href="#"><img src="logo.png" alt="">Sincro</a>
-    <nav aria-label="Principal">
+    <nav id="menu-principal" aria-label="Principal">
       <a href="#resolvemos">Qué resolvemos</a>
       <a href="#trabajos">Trabajos</a>
-      <a class="movil-si" href="agentes.html">Agentes</a>
+      <a href="agentes.html">Agentes</a>
       <a href="#como">Cómo trabajamos</a>
       <a href="#preguntas">Preguntas</a>
       <a class="pildora" href="#contacto">Contacto</a>
     </nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menú"><span></span><span></span><span></span></button>
   </div>
 </header>
 
@@ -313,8 +300,11 @@
 
   <section class="bloque" id="resolvemos">
     <div class="contenedor">
-      <h2 data-aparece>Qué resolvemos</h2>
-      <p class="intro">Cada sistema se arma para cómo trabaja tu negocio. Estas son las cosas que más nos piden:</p>
+      <div class="cabeza" data-aparece>
+        <p class="etiqueta-sec">Lo que hacemos</p>
+        <h2>Qué resolvemos</h2>
+        <p class="intro">Cada sistema se arma para cómo trabaja tu negocio. Estas son las cosas que más nos piden:</p>
+      </div>
       <ul class="resolvemos">
         <li style="--foto: url(resuelve-facturas.webp); --orden: 0" data-aparece><div class="texto"><b>Facturas que se cargan solas</b><span>Nos reenviás la foto o el PDF por WhatsApp o mail y queda cargada con proveedor, monto y vencimiento. Sin tipear nada.</span></div></li>
         <li style="--foto: url(resuelve-pedidos.webp); --orden: 1" data-aparece><div class="texto"><b>Pedidos directo al sistema</b><span>Los pedidos que entran por WhatsApp o mail se registran solos, con cliente y productos, listos para preparar.</span></div></li>
@@ -329,8 +319,11 @@
   <section class="bloque" id="agentes">
     <div class="contenedor agentes-teaser">
       <div data-aparece>
-        <h2>Agentes</h2>
-        <p class="intro">Asistentes que trabajan dentro de tu sistema: uno para marketing, otro para contenido y pronto uno que atiende tus mensajes. Vos elegís cuánto hacen solos.</p>
+        <div class="cabeza">
+          <p class="etiqueta-sec">Agentes</p>
+          <h2>Agentes</h2>
+          <p class="intro">Asistentes que trabajan dentro de tu sistema: uno para marketing, otro para contenido y pronto uno que atiende tus mensajes. Vos elegís cuánto hacen solos.</p>
+        </div>
       </div>
       <a class="boton" href="agentes.html">Conocé los agentes</a>
     </div>
@@ -340,8 +333,11 @@
     <div class="contenedor">
       <div class="caso-cabeza" data-aparece="izq">
         <div>
-          <h2>Ya funcionando</h2>
-          <p class="intro">Sistemas que hicimos y que se usan todos los días.</p>
+          <div class="cabeza">
+            <p class="etiqueta-sec">Trabajos</p>
+            <h2>Ya funcionando</h2>
+            <p class="intro">Sistemas que hicimos y que se usan todos los días.</p>
+          </div>
         </div>
         <div class="flechas">
           <button type="button" data-ir="-1" aria-label="Trabajo anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -368,8 +364,11 @@
 
   <section class="bloque" id="como">
     <div class="contenedor">
-      <h2 data-aparece>Cómo trabajamos</h2>
-      <p class="intro">Sin vueltas, sin maquetas y sin pagar por cosas que no vas a usar.</p>
+      <div class="cabeza" data-aparece>
+        <p class="etiqueta-sec">Proceso</p>
+        <h2>Cómo trabajamos</h2>
+        <p class="intro">Sin vueltas, sin maquetas y sin pagar por cosas que no vas a usar.</p>
+      </div>
       <ol class="pasos" data-solo-marca>
         <li style="--orden: 0" data-aparece><span class="num" aria-hidden="true">1</span><span class="cuando">15 minutos</span><b>Nos contás</b><p>Una llamada corta para entender qué te come el tiempo: la planilla que nadie actualiza, los pedidos que se pierden en el WhatsApp, las facturas en una caja.</p></li>
         <li style="--orden: 1" data-aparece><span class="num" aria-hidden="true">2</span><span class="cuando">Con tus datos</span><b>Lo armamos</b><p>Te mostramos el sistema andando con tus datos reales, no una presentación. Si algo no cierra, lo cambiamos antes de seguir.</p></li>
@@ -382,8 +381,11 @@
     <div class="contenedor">
       <div class="contacto-grilla">
         <div>
-          <h2 data-aparece>Hablemos</h2>
-          <p class="intro">Contanos qué querés resolver y te respondemos con horarios para una llamada.</p>
+          <div class="cabeza" data-aparece>
+            <p class="etiqueta-sec">Contacto</p>
+            <h2>Hablemos</h2>
+            <p class="intro">Contanos qué querés resolver y te respondemos con horarios para una llamada.</p>
+          </div>
           <div class="redes">
             <a class="red wa" style="--orden: 0" data-aparece="izq" href="https://wa.me/5491141879467?text=Hola%20Sincro%2C%20quiero%20consultar%20por%20un%20sistema%20para%20mi%20negocio" target="_blank" rel="noopener">
               <span class="icono" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.8l5.1-1.3A9.7 9.7 0 1 0 12 2.2zm0 17.7c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.8 4.4 3.9.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2z"/></svg></span>
@@ -429,7 +431,11 @@
       </div>
 
       <div class="faq" id="preguntas">
-        <h2 data-aparece>Preguntas frecuentes</h2>
+        <div class="cabeza" data-aparece>
+          <p class="etiqueta-sec">Preguntas</p>
+          <h2>Preguntas frecuentes</h2>
+          <p class="intro">Lo que más nos consultan antes de arrancar.</p>
+        </div>
         <div>
           <details data-aparece><summary>¿Cuánto cuesta?</summary><div class="respuesta"><p>Depende de lo que haya que armar. Después de la llamada te pasamos un presupuesto por escrito, antes de empezar, y no pagás por funciones que no vas a usar.</p></div></details>
           <details data-aparece><summary>¿Cuánto tarda?</summary><div class="respuesta"><p>Depende del sistema. En la llamada te decimos plazos concretos, y en el camino te vamos mostrando avances andando con tus datos.</p></div></details>
@@ -492,16 +498,6 @@
 </footer>
 
 <script>
-  // Al scrollear: lo que entra en pantalla aparece (una sola vez).
-  (function () {
-    const cosas = document.querySelectorAll('[data-aparece], [data-solo-marca]');
-    if (!('IntersectionObserver' in window)) { cosas.forEach((c) => c.classList.add('visto')); return; }
-    const ojo = new IntersectionObserver((entradas) => {
-      entradas.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visto'); ojo.unobserve(e.target); } });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-    cosas.forEach((c) => ojo.observe(c));
-  })();
-
   // Carrusel: flechas, rayitas y cual se esta viendo.
   (function () {
     const pista = document.querySelector('.pista');
@@ -553,28 +549,6 @@
       document.querySelectorAll('.flechas button').forEach((f) => f.addEventListener('click', contar));
       indicador.addEventListener('click', contar);
     }
-  })();
-
-  // FAQ: la respuesta se despliega en vez de aparecer de golpe.
-  (function () {
-    const suave = !matchMedia('(prefers-reduced-motion: reduce)').matches;
-    document.querySelectorAll('.faq details').forEach((d) => {
-      const caja = d.querySelector('.respuesta');
-      d.querySelector('summary').addEventListener('click', (e) => {
-        if (!suave) return;
-        e.preventDefault();
-        if (d.dataset.moviendo) return;
-        d.dataset.moviendo = '1';
-        const abrir = !d.open;
-        if (abrir) d.open = true;
-        const alto = caja.scrollHeight;
-        const anim = caja.animate(
-          abrir ? [{ height: '0px', opacity: 0 }, { height: alto + 'px', opacity: 1 }] : [{ height: alto + 'px', opacity: 1 }, { height: '0px', opacity: 0 }],
-          { duration: abrir ? 420 : 320, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' },
-        );
-        anim.onfinish = () => { if (!abrir) d.open = false; delete d.dataset.moviendo; };
-      });
-    });
   })();
 
   // Formulario: va al bot de WhatsApp de Sincro (que se lo pasa a Homero). Si
@@ -646,5 +620,6 @@
     }
   });
 </script>
+<script src="sitio.js?v=1" defer></script>
 </body>
 </html>
